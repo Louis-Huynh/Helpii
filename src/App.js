@@ -12,6 +12,8 @@ import Shop from "./Section/Shop";
 
 import Auth from "./Section/Auth";
 
+import Registration from "./Section/Registration";
+
 import { Switch, Route, Link } from "react-router-dom";
 
 function App() {
@@ -33,6 +35,10 @@ function App() {
 
       <Route exact path="/auth">
         <Auth />
+      </Route>
+
+      <Route exact path="/register">
+        <Registration />
       </Route>
     </div>
   );

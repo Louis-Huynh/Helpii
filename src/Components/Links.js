@@ -9,6 +9,7 @@ const Links = () => {
       <LinkItem to="/services">services</LinkItem>
       <LinkItem to="/shop">shops</LinkItem>
       <LinkItem to="/auth">signin</LinkItem>
+      <LinkItem to="/register">Registration</LinkItem>
     </Wrapper>
   );
 };
