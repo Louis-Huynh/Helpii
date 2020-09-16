@@ -3,10 +3,34 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import FieldInput from "../Components/FieldInput";
 
+import axios from "axios";
+
 const RegistrationContainer = () => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  let submitRegistration = () => {
+    // console.log("tesst");
+    // let registerInfo = {
+    //   username: username,
+    //   email: email,
+    //   password: password,
+    // };
+
+    axios
+      .post("http://localhost:3001/register", {
+        username: username,
+        email: email,
+        password: password,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <Wrapper>
@@ -32,7 +56,7 @@ const RegistrationContainer = () => {
           }}
         />
       </UserInputWrapper>
-      <Button variant="outlined" color="primary">
+      <Button variant="outlined" color="primary" onClick={submitRegistration}>
         Create account
       </Button>
     </Wrapper>
