@@ -16,6 +16,8 @@ import Registration from "./Section/Registration";
 
 import { Switch, Route, Link } from "react-router-dom";
 
+import FooterContainer from "./Containers/FooterContainer";
+
 function App() {
   return (
     <div className="App">
@@ -40,6 +42,8 @@ function App() {
       <Route exact path="/register">
         <Registration />
       </Route>
+
+      <FooterContainer />
     </div>
   );
 }
