@@ -6,8 +6,12 @@ import Button from "@material-ui/core/Button";
 const SearchBar = () => {
   return (
     <Wrapper>
-      <TextWrapper id="outlined-basic" label="Outlined" variant="outlined" />
-      <Button variant="contained">Default</Button>
+      <TextWrapper
+        id="outlined-basic"
+        label="Search for anything..."
+        variant="outlined"
+      />
+      <SubmitBtn variant="contained">Search</SubmitBtn>
     </Wrapper>
   );
 };
@@ -20,5 +24,14 @@ const Wrapper = styled.div`
 `;
 
 const TextWrapper = styled(TextField)`
-  margin-right: 10%;
+  width: 40vw;
+  .MuiOutlinedInput-root {
+    margin-right: 10%;
+  }
+`;
+
+const SubmitBtn = styled(Button)`
+  .MuiButton-label {
+    color: green;
+  }
 `;
