@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { COLORS } from "../Styles/Color";
 
 const Links = () => {
   return (
@@ -15,15 +16,25 @@ const Links = () => {
 };
 
 export default Links;
+//MOBILE-> flex-direction: row-reverse;
 
 const LinkItem = styled(Link)`
   margin: 3%;
+  color: white;
+  text-decoration: none;
+  outline: none;
+  &:hover {
+    color: ${COLORS.orange};
+  }
+  font-size: 1.5em;
 `;
 
 const Wrapper = styled.div`
-    display:flex
-    flex-direction:column;
-    padding-top: 2%;
+  display: flex;
+  flex-direction: rows;
 
-    border:1px solid black;
+  justify-content: center;
+
+  border: 1px solid black;
+  background-color: #242a47;
 `;
