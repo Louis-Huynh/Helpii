@@ -3,16 +3,12 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import Navigation from "./Containers/Navigation";
-
 import Homepage from "./Section/Homepage";
-
 import Services from "./Section/Services";
-
 import Shop from "./Section/Shop";
-
 import Auth from "./Section/Auth";
-
 import Registration from "./Section/Registration";
+import Login from "./Section/Login";
 
 import { Switch, Route, Link } from "react-router-dom";
 
@@ -34,7 +30,7 @@ function App() {
       </Route>
 
       <Route exact path="/auth">
-        <Auth />
+        <Login />
       </Route>
 
       <Route exact path="/register">
