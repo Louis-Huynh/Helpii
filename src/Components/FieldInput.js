@@ -6,6 +6,7 @@ const FieldInput = (props) => {
   return (
     <Wrapper>
       <TextField
+        style={{ width: "100%" }}
         variant="outlined"
         label={props.title}
         onChange={(data) => {
@@ -21,7 +22,7 @@ export default FieldInput;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 5%;
+  margin: 5% 0;
 `;
 
 const Title = styled.div``;

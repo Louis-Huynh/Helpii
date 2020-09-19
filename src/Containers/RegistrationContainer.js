@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import FieldInput from "../Components/FieldInput";
 
+import { COLORS } from "../Styles/Color";
+
 import axios from "axios";
 
 const RegistrationContainer = () => {
@@ -40,29 +42,39 @@ const RegistrationContainer = () => {
           Create an account. It’s free and take only a few minutes.
         </SubTitle>
 
-        <FieldInput
+        <FieldButton
           title={"Username"}
           updateData={(e) => {
             setUsername(e);
           }}
         />
-        <FieldInput
+        <FieldButton
           variant="outlined"
           title={"Email Address"}
           updateData={(e) => {
             setEmail(e);
           }}
         />
-        <FieldInput
+        <FieldButton
           title={"Password"}
           updateData={(e) => {
             setPassword(e);
           }}
         />
+
+        <Button
+          style={{
+            width: "100%",
+            backgroundColor: COLORS.orange,
+            color: COLORS.white,
+          }}
+          variant="outlined"
+          color="primary"
+          onClick={submitRegistration}
+        >
+          Create account
+        </Button>
       </UserInputWrapper>
-      <Button variant="outlined" color="primary" onClick={submitRegistration}>
-        Create account
-      </Button>
     </Wrapper>
   );
 };
@@ -88,6 +100,8 @@ const UserInputWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
 `;
+
+const FieldButton = styled(FieldInput)``;
