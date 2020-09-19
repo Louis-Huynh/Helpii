@@ -6,11 +6,9 @@ import { COLORS } from "../Styles/Color";
 const Links = () => {
   return (
     <Wrapper>
-      <LinkItem to="/">Home</LinkItem>
       <LinkItem to="/services">services</LinkItem>
       <LinkItem to="/shop">shops</LinkItem>
       <LinkItem to="/auth">signin</LinkItem>
-      <LinkItem to="/register">Registration</LinkItem>
     </Wrapper>
   );
 };

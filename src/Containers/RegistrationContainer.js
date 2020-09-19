@@ -36,6 +36,9 @@ const RegistrationContainer = () => {
     <Wrapper>
       <UserInputWrapper>
         <Title>Create an account</Title>
+        <SubTitle>
+          Create an account. It’s free and take only a few minutes.
+        </SubTitle>
 
         <FieldInput
           title={"Username"}
@@ -44,6 +47,7 @@ const RegistrationContainer = () => {
           }}
         />
         <FieldInput
+          variant="outlined"
           title={"Email Address"}
           updateData={(e) => {
             setEmail(e);
@@ -66,7 +70,6 @@ const RegistrationContainer = () => {
 export default RegistrationContainer;
 
 const Wrapper = styled.div`
-  border: 1px solid black;
   border-radius: 10px;
   margin: 4%;
   padding: 2%;
@@ -76,7 +79,12 @@ const Title = styled.div`
   border-bottom: 3px solid black;
 `;
 
+const SubTitle = styled.div`
+  font-size: 0.8em;
+`;
+
 const UserInputWrapper = styled.div`
+  margin: 0 10%;
   height: 100%;
   display: flex;
   flex-direction: column;
