@@ -35,10 +35,6 @@ function App() {
         <Login />
       </Route>
 
-      <Route exact path="/register">
-        <Registration />
-      </Route>
-
       <FooterContainer />
     </div>
   );
