@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import FieldInput from "../Components/FieldInput";
+import { useTranslation } from "react-i18next";
 
 import { COLORS } from "../Styles/Color";
 
@@ -11,6 +12,11 @@ const RegistrationContainer = () => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { t, i18n } = useTranslation();
+
+  // useEffect(() => {
+  //   i18n.changeLanguage("fr");
+  // }, []);
 
   let submitRegistration = () => {
     // console.log("tesst");
@@ -37,10 +43,9 @@ const RegistrationContainer = () => {
   return (
     <Wrapper>
       <UserInputWrapper>
-        <Title>Create an account</Title>
-        <SubTitle>
-          Create an account. It’s free and take only a few minutes.
-        </SubTitle>
+        <Title>{t("Create_account")}</Title>
+        <SubTitle>{t("Create_account_subtitle")}</SubTitle>
+        {/* Create an account. It’s free and take only a few minutes. */}
 
         <FieldButton
           title={"Username"}
