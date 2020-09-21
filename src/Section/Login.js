@@ -5,12 +5,19 @@ import Logo from "../assets/Logo/logo.png";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import ReactCardFlip from "react-card-flip";
+import TextField from "@material-ui/core/TextField";
+import Input from "@material-ui/core/Input";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputLabel from "@material-ui/core/InputLabel";
 
 import RegistrationContainer from "../Containers/RegistrationContainer";
 
 const Login = () => {
   const [username, setUsername] = useState(null);
   const [isFlipped, setFlipped] = useState(false);
+
+  const [email, setEmail] = useState(null);
+  const [isContinueToPass, setContinueToPass] = useState(false);
 
   const successLogin = () => {
     console.log("Success");
@@ -29,6 +36,19 @@ const Login = () => {
     setFlipped(!isFlipped);
   };
 
+  const submitEmail = () => {
+    // axios verify if contains email
+
+    let getEmail = true;
+
+    if (getEmail) {
+      setEmail("Johnny@gmail.com");
+      setContinueToPass(true);
+    } else {
+      setEmail(null);
+    }
+  };
+
   return (
     <Wrapper>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
@@ -38,21 +58,23 @@ const Login = () => {
           </LogoContainer>
           <LoginOptions>
             <Title>Member Login</Title>
-            <Button>Login with Email</Button>
-            <GoogleLogin
-              clientId="185804809654-lvp5lufl3r6nk9lf2rbe26lb28llmcgm.apps.googleusercontent.com"
-              buttonText="Login with Google"
-              onSuccess={successLogin}
-              onFailure={failureLogin}
-              cookiePolicy={"single_host_origin"}
-            />
-            <FacebookLogin
-              appId="1088597931155576"
-              // autoLoad={true}
-              fields="name,email,picture"
-              // onClick={componentClicked}
-              callback={responseFacebook}
-            />
+            {isContinueToPass ? (
+              <UserInputWrapper>
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput type={"password"} />
+                <Button onClick={submitEmail}>Submit</Button>
+              </UserInputWrapper>
+            ) : (
+              <UserInputWrapper>
+                <TextField
+                  label="Login with email or username"
+                  variant="outlined"
+                />
+                <Button onClick={submitEmail}>Continue</Button>
+              </UserInputWrapper>
+            )}
             <Button>Forgot password/username</Button>
             <Button onClick={handleClick}>Create an account</Button>
           </LoginOptions>
@@ -114,3 +136,28 @@ const LoginOptions = styled.div`
 `;
 
 const Title = styled.h3``;
+
+const UserInputWrapper = styled.span`
+  display: flex;
+  flex-direction: column;
+`;
+
+{
+  /* <Button>Login with Email</Button> */
+}
+{
+  /* <GoogleLogin
+              clientId="185804809654-lvp5lufl3r6nk9lf2rbe26lb28llmcgm.apps.googleusercontent.com"
+              buttonText="Login with Google"
+              onSuccess={successLogin}
+              onFailure={failureLogin}
+              cookiePolicy={"single_host_origin"}
+            />
+            <FacebookLogin
+              appId="1088597931155576"
+              // autoLoad={true}
+              fields="name,email,picture"
+              // onClick={componentClicked}
+              callback={responseFacebook}
+            /> */
+}
