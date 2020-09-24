@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
+import { withRouter } from "react-router-dom";
 
 import RegistrationContainer from "../Containers/RegistrationContainer";
 
@@ -36,6 +37,13 @@ const Login = () => {
     setFlipped(!isFlipped);
   };
 
+  const submitPassword = () => {
+    // axios to retrieve post login
+    // if password succeed then go to homepage
+    // this.props.history.push("http://localhost:3000/");
+    // else ask user to retry
+  };
+
   const submitEmail = () => {
     // axios verify if contains email
 
@@ -58,13 +66,14 @@ const Login = () => {
           </LogoContainer>
           <LoginOptions>
             <Title>Member Login</Title>
+
             {isContinueToPass ? (
               <UserInputWrapper>
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
                 </InputLabel>
                 <OutlinedInput type={"password"} />
-                <Button onClick={submitEmail}>Submit</Button>
+                <Button onClick={submitPassword}>Submit</Button>
               </UserInputWrapper>
             ) : (
               <UserInputWrapper>
@@ -75,6 +84,7 @@ const Login = () => {
                 <Button onClick={submitEmail}>Continue</Button>
               </UserInputWrapper>
             )}
+
             <Button>Forgot password/username</Button>
             <Button onClick={handleClick}>Create an account</Button>
           </LoginOptions>
@@ -89,7 +99,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);
 
 const Wrapper = styled.div`
   display: flex;
