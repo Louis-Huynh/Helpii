@@ -9,16 +9,21 @@ import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
-import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 import RegistrationContainer from "../Containers/RegistrationContainer";
+import { getNodeText } from "@testing-library/react";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState(null);
   const [isFlipped, setFlipped] = useState(false);
 
   const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
   const [isContinueToPass, setContinueToPass] = useState(false);
+
+  const history = useHistory();
 
   const successLogin = () => {
     console.log("Success");
@@ -37,20 +42,30 @@ const Login = () => {
     setFlipped(!isFlipped);
   };
 
+  //if response.data.status===Success then the user is authenticated
   const submitPassword = () => {
-    // axios to retrieve post login
-    // if password succeed then go to homepage
-    // this.props.history.push("http://localhost:3000/");
-    // else ask user to retry
+    axios
+      .post("http://localhost:3001/signin", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log("res: ", response);
+        if (response.data.status === "Success") {
+          history.push("/");
+        } else {
+          console.log("login fails");
+        }
+      })
+      .catch((error) => console.log("error: ", error));
+
+    return;
   };
 
   const submitEmail = () => {
-    // axios verify if contains email
-
     let getEmail = true;
 
     if (getEmail) {
-      setEmail("Johnny@gmail.com");
       setContinueToPass(true);
     } else {
       setEmail(null);
@@ -72,12 +87,16 @@ const Login = () => {
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
                 </InputLabel>
-                <OutlinedInput type={"password"} />
+                <OutlinedInput
+                  onChange={(e) => setPassword(e.target.value)}
+                  type={"password"}
+                />
                 <Button onClick={submitPassword}>Submit</Button>
               </UserInputWrapper>
             ) : (
               <UserInputWrapper>
                 <TextField
+                  onChange={(e) => setEmail(e.target.value)}
                   label="Login with email or username"
                   variant="outlined"
                 />
@@ -99,7 +118,7 @@ const Login = () => {
   );
 };
 
-export default withRouter(Login);
+export default Login;
 
 const Wrapper = styled.div`
   display: flex;
