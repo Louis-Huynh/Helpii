@@ -5,7 +5,7 @@ import App from "./App";
 import "./i18next";
 import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
-import allReducer from "./Reducers/index";
+import allReducer from "./Reducers";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 

@@ -12,10 +12,10 @@ const setUsername = (user) => {
   };
 };
 
-const setEmail = (pass) => {
+const receiveEmail = (email) => {
   return {
     type: "SET_EMAIL",
-    payload: pass,
+    payload: email,
   };
 };
 
@@ -26,4 +26,4 @@ const setCart = (cart) => {
   };
 };
 
-export { setLogin, setUsername, setEmail, setCart };
+export { setLogin, setUsername, receiveEmail, setCart };

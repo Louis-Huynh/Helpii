@@ -14,11 +14,11 @@ import axios from "axios";
 import RegistrationContainer from "../Containers/RegistrationContainer";
 import { getNodeText } from "@testing-library/react";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
-import { setEmail, setLogin } from "../Actions/user";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogin, setUsername, receiveEmail, setCart } from "../Actions";
 
 const Login = () => {
-  const [username, setUsername] = useState(null);
+  // const [username, setUsername] = useState(null);
   const [isFlipped, setFlipped] = useState(false);
 
   const [email, setEmail] = useState(null);
@@ -26,6 +26,8 @@ const Login = () => {
   const [isContinueToPass, setContinueToPass] = useState(false);
 
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const successLogin = () => {
     console.log("Success");
@@ -55,8 +57,10 @@ const Login = () => {
         console.log("res: ", response);
         if (response.data.status === "Success") {
           history.push("/");
-          setEmail(response.data.email);
-          setLogin(true);
+          dispatch(setUsername("Brockhampton fan"));
+          dispatch(setLogin());
+          dispatch(receiveEmail(response.data.email));
+          dispatch(setCart(["apple", "oranges", "banana"]));
         } else {
           console.log("login fails");
         }
@@ -122,19 +126,7 @@ const Login = () => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  //null because we are not planning on changing the state
-  return {
-    setEmail: (email) => {
-      console.log("in map dispatch: ");
-      dispatch(setEmail(email));
-    },
-    setLogin: (isLogged) => {
-      dispatch(setLogin(isLogged));
-    },
-  };
-};
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;
 
 const Wrapper = styled.div`
   display: flex;
