@@ -14,6 +14,8 @@ import axios from "axios";
 import RegistrationContainer from "../Containers/RegistrationContainer";
 import { getNodeText } from "@testing-library/react";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { setEmail, setLogin } from "../Actions/user";
 
 const Login = () => {
   const [username, setUsername] = useState(null);
@@ -53,6 +55,8 @@ const Login = () => {
         console.log("res: ", response);
         if (response.data.status === "Success") {
           history.push("/");
+          setEmail(response.data.email);
+          setLogin(true);
         } else {
           console.log("login fails");
         }
@@ -118,7 +122,19 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  //null because we are not planning on changing the state
+  return {
+    setEmail: (email) => {
+      console.log("in map dispatch: ");
+      dispatch(setEmail(email));
+    },
+    setLogin: (isLogged) => {
+      dispatch(setLogin(isLogged));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(Login);
 
 const Wrapper = styled.div`
   display: flex;
