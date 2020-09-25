@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import { COLORS } from "../Styles/Color";
 
 const Links = () => {
@@ -13,21 +12,9 @@ const Links = () => {
     </Wrapper>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    username: state.username,
-    email: state.email,
-    isLogged: state.isLogged,
-    cart: state.cart,
-  };
-};
 
-// const mapDispatchToProps = (dispatch) => {//null because we are not planning on changing the state
-//   return{
-
-//   }
-// };
-export default connect(mapStateToProps, null)(Links);
+export default Links;
+//MOBILE-> flex-direction: row-reverse;
 
 const LinkItem = styled(Link)`
   margin: 3%;
