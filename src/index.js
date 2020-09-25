@@ -4,15 +4,19 @@ import "./index.css";
 import App from "./App";
 import "./i18next";
 import * as serviceWorker from "./serviceWorker";
-
+import { createStore } from "redux";
+import allReducer from "./Reducers";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <Router>
+        <App />
+      </Router>
+    </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 );
 

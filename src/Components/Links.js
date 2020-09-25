@@ -16,6 +16,10 @@ const Links = () => {
 export default Links;
 //MOBILE-> flex-direction: row-reverse;
 
+//   }
+// };
+export default Links;
+
 const LinkItem = styled(Link)`
   margin: 3%;
   color: white;
