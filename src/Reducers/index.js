@@ -1,7 +1,7 @@
 import { UserReducer } from "./user";
 
-const allReducers = {
-  user: UserReducer,
+const allReducers = () => {
+  return { user: UserReducer };
 };
 
 export default allReducers;

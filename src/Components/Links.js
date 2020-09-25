@@ -29,10 +29,6 @@ const mapStateToProps = (state) => {
 // };
 export default connect(mapStateToProps, null)(Links);
 
-//   }
-// };
-export default Links;
-
 const LinkItem = styled(Link)`
   margin: 3%;
   color: white;
