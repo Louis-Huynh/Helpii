@@ -110,8 +110,10 @@ const Login = () => {
         </FrontWrapper>
 
         <BackWrapper>
-          <RegistrationContainer />
-          <Button onClick={handleClick}>Already have an account?</Button>
+          <Container>
+            <RegistrationContainer />
+            <Button onClick={handleClick}>Already have an account?</Button>
+          </Container>
         </BackWrapper>
       </ReactCardFlip>
     </Wrapper>
@@ -139,13 +141,21 @@ const FrontWrapper = styled.div`
 `;
 
 const BackWrapper = styled.div`
-  width: 100%;
   justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgb(196, 196, 196, 0.4);
+
   border-radius: 5px;
+
+  border: 1px solid green;
+`;
+
+const Container = styled.div`
+  height: 60vh;
+  width: 100vw;
+  background: rgb(196, 196, 196, 0.4);
+  border: 1px solid red;
 `;
 
 const LogoContainer = styled.div`
