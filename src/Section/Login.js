@@ -58,7 +58,7 @@ const Login = () => {
         if (response.data.status === "Success") {
           history.push("/");
           dispatch(setUsername("Brockhampton fan"));
-          dispatch(setLogin());
+          dispatch(setLogin(true));
           dispatch(receiveEmail(response.data.email));
           dispatch(setCart(["apple", "oranges", "banana"]));
         } else {

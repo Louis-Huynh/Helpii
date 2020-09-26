@@ -5,12 +5,12 @@ import App from "./App";
 import "./i18next";
 import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
-import allReducer from "./Reducers";
+import { userReducer } from "./Reducers/userReducer";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const store = createStore(
-  allReducer,
+  userReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
