@@ -17,9 +17,11 @@ import axios from "axios";
 import RegistrationContainer from "../Containers/RegistrationContainer";
 import { getNodeText } from "@testing-library/react";
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogin, setUsername, receiveEmail, setCart } from "../Actions";
 
 const Login = () => {
-  const [username, setUsername] = useState(null);
+  // const [username, setUsername] = useState(null);
   const [isFlipped, setFlipped] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
 
@@ -28,6 +30,8 @@ const Login = () => {
   const [isContinueToPass, setContinueToPass] = useState(false);
 
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const successLogin = () => {
     console.log("Success");
@@ -57,6 +61,10 @@ const Login = () => {
         console.log("res: ", response);
         if (response.data.status === "Success") {
           history.push("/");
+          dispatch(setUsername("Brockhampton fan"));
+          dispatch(setLogin(true));
+          dispatch(receiveEmail(response.data.email));
+          dispatch(setCart(["apple", "oranges", "banana"]));
         } else {
           console.log("login fails");
           setOpenSnack(true);
