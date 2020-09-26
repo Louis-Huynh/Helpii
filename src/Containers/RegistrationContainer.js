@@ -103,17 +103,12 @@ const RegistrationContainer = () => {
 export default RegistrationContainer;
 
 const Wrapper = styled.div`
-height:100%;
-width:100%:
-background: rgb(196, 196, 196, 0.4);
-margin: 0 25%;
-border: 1px solid purple;
+  background: rgb(196, 196, 196, 0.4);
+  padding: 10%;
 `;
 
 const FormWrapper = styled.div`
   border-radius: 10px;
-  margin: 4%;
-  padding: 2%;
 `;
 
 const Title = styled.div`
@@ -125,8 +120,6 @@ const SubTitle = styled.div`
 `;
 
 const UserInputWrapper = styled.div`
-  margin: 0 10%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: left;
