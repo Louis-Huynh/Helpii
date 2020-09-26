@@ -6,8 +6,7 @@ import Navigation from "./Containers/Navigation";
 import Homepage from "./Section/Homepage";
 import Services from "./Section/Services";
 import Shop from "./Section/Shop";
-import Auth from "./Section/Auth";
-import Registration from "./Section/Registration";
+import ShoppingCart from "./Section/ShoppingCart";
 import Login from "./Section/Login";
 
 import { Switch, Route, Link } from "react-router-dom";
@@ -33,6 +32,10 @@ function App() {
 
       <Route exact path="/auth">
         <Login />
+      </Route>
+
+      <Route exact path="/cart">
+        <ShoppingCart />
       </Route>
 
       <FooterContainer />

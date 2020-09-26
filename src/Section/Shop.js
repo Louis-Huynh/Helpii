@@ -11,4 +11,6 @@ const Shop = () => {
 
 export default Shop;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: 80vh;
+`;

@@ -9,21 +9,29 @@ import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
+import Chip from "@material-ui/core/Chip";
 import axios from "axios";
 
 import RegistrationContainer from "../Containers/RegistrationContainer";
 import { getNodeText } from "@testing-library/react";
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogin, setUsername, receiveEmail, setCart } from "../Actions";
 
 const Login = () => {
-  const [username, setUsername] = useState(null);
+  // const [username, setUsername] = useState(null);
   const [isFlipped, setFlipped] = useState(false);
+  const [openSnack, setOpenSnack] = useState(false);
 
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [isContinueToPass, setContinueToPass] = useState(false);
 
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const successLogin = () => {
     console.log("Success");
@@ -53,8 +61,13 @@ const Login = () => {
         console.log("res: ", response);
         if (response.data.status === "Success") {
           history.push("/");
+          dispatch(setUsername("Brockhampton fan"));
+          dispatch(setLogin(true));
+          dispatch(receiveEmail(response.data.email));
+          dispatch(setCart(["apple", "oranges", "banana"]));
         } else {
           console.log("login fails");
+          setOpenSnack(true);
         }
       })
       .catch((error) => console.log("error: ", error));
@@ -74,6 +87,24 @@ const Login = () => {
 
   return (
     <Wrapper>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={() => {
+          setOpenSnack(false);
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setOpenSnack(false);
+          }}
+          severity="error"
+        >
+          Error, please retry entering your password
+        </Alert>
+      </Snackbar>
+
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <FrontWrapper>
           <LogoContainer>
@@ -84,10 +115,16 @@ const Login = () => {
 
             {isContinueToPass ? (
               <UserInputWrapper>
+                <Chip label={email} />
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
                 </InputLabel>
                 <OutlinedInput
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      submitPassword();
+                    }
+                  }}
                   onChange={(e) => setPassword(e.target.value)}
                   type={"password"}
                 />
@@ -96,6 +133,11 @@ const Login = () => {
             ) : (
               <UserInputWrapper>
                 <TextField
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      submitEmail();
+                    }
+                  }}
                   onChange={(e) => setEmail(e.target.value)}
                   label="Login with email or username"
                   variant="outlined"
@@ -145,17 +187,11 @@ const BackWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   border-radius: 5px;
-
-  border: 1px solid green;
 `;
 
 const Container = styled.div`
-  height: 60vh;
-  width: 100vw;
   background: rgb(196, 196, 196, 0.4);
-  border: 1px solid red;
 `;
 
 const LogoContainer = styled.div`

@@ -17,8 +17,7 @@ export default FooterLinks;
 
 const Wrapper = styled.div`
   background-color: ${COLORS.dark_blue};
-  position: absolute;
-  bottom: 0%;
+
   width: 100%;
   padding: 1% 0%;
 `;
