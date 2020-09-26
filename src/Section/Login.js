@@ -9,6 +9,9 @@ import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
+import Chip from "@material-ui/core/Chip";
 import axios from "axios";
 
 import RegistrationContainer from "../Containers/RegistrationContainer";
@@ -18,6 +21,7 @@ import { useHistory } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState(null);
   const [isFlipped, setFlipped] = useState(false);
+  const [openSnack, setOpenSnack] = useState(false);
 
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -55,6 +59,7 @@ const Login = () => {
           history.push("/");
         } else {
           console.log("login fails");
+          setOpenSnack(true);
         }
       })
       .catch((error) => console.log("error: ", error));
@@ -74,6 +79,24 @@ const Login = () => {
 
   return (
     <Wrapper>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={() => {
+          setOpenSnack(false);
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setOpenSnack(false);
+          }}
+          severity="error"
+        >
+          Error, please retry entering your password
+        </Alert>
+      </Snackbar>
+
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <FrontWrapper>
           <LogoContainer>
@@ -84,10 +107,16 @@ const Login = () => {
 
             {isContinueToPass ? (
               <UserInputWrapper>
+                <Chip label={email} />
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
                 </InputLabel>
                 <OutlinedInput
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      submitPassword();
+                    }
+                  }}
                   onChange={(e) => setPassword(e.target.value)}
                   type={"password"}
                 />
@@ -96,6 +125,11 @@ const Login = () => {
             ) : (
               <UserInputWrapper>
                 <TextField
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      submitEmail();
+                    }
+                  }}
                   onChange={(e) => setEmail(e.target.value)}
                   label="Login with email or username"
                   variant="outlined"
@@ -110,8 +144,10 @@ const Login = () => {
         </FrontWrapper>
 
         <BackWrapper>
-          <RegistrationContainer />
-          <Button onClick={handleClick}>Already have an account?</Button>
+          <Container>
+            <RegistrationContainer />
+            <Button onClick={handleClick}>Already have an account?</Button>
+          </Container>
         </BackWrapper>
       </ReactCardFlip>
     </Wrapper>
@@ -139,13 +175,15 @@ const FrontWrapper = styled.div`
 `;
 
 const BackWrapper = styled.div`
-  width: 100%;
   justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgb(196, 196, 196, 0.4);
   border-radius: 5px;
+`;
+
+const Container = styled.div`
+  background: rgb(196, 196, 196, 0.4);
 `;
 
 const LogoContainer = styled.div`
