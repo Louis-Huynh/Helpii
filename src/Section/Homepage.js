@@ -11,4 +11,6 @@ const Homepage = () => {
 
 export default Homepage;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: 80vh;
+`;
