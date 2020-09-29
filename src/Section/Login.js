@@ -28,6 +28,8 @@ const Login = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [isContinueToPass, setContinueToPass] = useState(false);
+  const [isPasswordSet, setIsPassword] = useState(false);
+  const [isEmailSet, setIsEmail] = useState(false);
 
   const history = useHistory();
 
@@ -63,11 +65,10 @@ const Login = () => {
           history.push("/");
           dispatch(setUsername("Brockhampton fan"));
           dispatch(setLogin(true));
-          dispatch(receiveEmail(response.data.email));
-          dispatch(setCart(["apple", "oranges", "banana"]));
         } else {
           console.log("login fails");
           setOpenSnack(true);
+          setIsPassword(true);
         }
       })
       .catch((error) => console.log("error: ", error));
@@ -78,11 +79,23 @@ const Login = () => {
   const submitEmail = () => {
     let getEmail = true;
 
-    if (getEmail) {
-      setContinueToPass(true);
-    } else {
-      setEmail(null);
-    }
+    axios
+      .post("http://localhost:3001/verify_email", {
+        email: email,
+      })
+      .then((response) => {
+        if (response.data.email) {
+          setContinueToPass(true);
+          dispatch(receiveEmail(response.data.email));
+          setIsEmail(false);
+        } else {
+          setOpenSnack(true);
+          setIsEmail(true);
+        }
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
   };
 
   return (
@@ -101,7 +114,10 @@ const Login = () => {
           }}
           severity="error"
         >
-          Error, please retry entering your password
+          {isEmailSet ? <>Error, please retry entering your email</> : null}
+          {isPasswordSet ? (
+            <>Error, please retry entering your password</>
+          ) : null}
         </Alert>
       </Snackbar>
 
