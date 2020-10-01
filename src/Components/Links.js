@@ -24,6 +24,7 @@ const Links = () => {
       <MiddleWrapper>
         <LinkItem to="/services">services</LinkItem>
         <LinkItem to="/shop">shops</LinkItem>
+        <LinkItem to="/chat">chat</LinkItem>
       </MiddleWrapper>
 
       <RightSideWrapper>
