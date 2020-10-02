@@ -6,8 +6,10 @@ const Chat = () => {
   const ws = new WebSocket(URL);
 
   const [input, setInput] = useState(null);
+  const [chatMessage, setChatMessage] = useState([]);
 
   const sendBackend = (e) => {
+    console.log("send");
     e.preventDefault();
 
     const message = {
@@ -15,7 +17,7 @@ const Chat = () => {
       payload: input,
     };
 
-    this.ws.send(JSON.stringify(message));
+    ws.send(JSON.stringify(message));
   };
 
   useEffect(() => {
@@ -24,7 +26,10 @@ const Chat = () => {
     };
 
     ws.onmessage = (evt) => {
-      console.log(`[message] Data receive from server: ${evt.data}`);
+      // console.log(`[message] Data receive from server: ${evt.data}`);
+      let tempArr = chatMessage;
+      tempArr.push(JSON.parse(evt.data).payload);
+      setChatMessage(tempArr);
     };
 
     ws.onclose = (evt) => {
@@ -34,10 +39,17 @@ const Chat = () => {
 
   return (
     <div>
+      <Chatbox>
+        {chatMessage.map((x, index) => {
+          return <p key={index}>{x}</p>;
+        })}
+      </Chatbox>
       <input onChange={(e) => setInput(e.target.value)}></input>
-      <button onSubmit={sendBackend}>click me</button>
+      <button onClick={sendBackend}>click me</button>
     </div>
   );
 };
 
 export default Chat;
+
+const Chatbox = styled.div``;
