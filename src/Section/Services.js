@@ -3,13 +3,14 @@ import styled from "styled-components";
 import SearchBar from "../Containers/SearchBar";
 import ServicesMenu from "../Containers/ServicesMenu";
 import LatestServices from "../Containers/LatestServices";
+import FeatureServices from "../Containers/FeatureServices";
 
 const Services = () => {
   return (
     <Wrapper>
       <SearchBar />
       <ServicesMenu />
-
+      <FeatureServices />
       <LatestServices />
     </Wrapper>
   );
