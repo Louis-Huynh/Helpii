@@ -55,7 +55,7 @@ const Login = () => {
   //if response.data.status===Success then the user is authenticated
   const submitPassword = () => {
     axios
-      .post("http://localhost:3001/signin", {
+      .post("https://helpii-backend.herokuapp.com/signin", {
         email: email,
         password: password,
       })
@@ -80,7 +80,7 @@ const Login = () => {
     let getEmail = true;
 
     axios
-      .post("http://localhost:3001/verify_email", {
+      .post("https://helpii-backend.herokuapp.com/verify_email", {
         email: email,
       })
       .then((response) => {
