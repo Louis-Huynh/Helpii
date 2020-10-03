@@ -41,8 +41,8 @@ const Chat = () => {
       let type = JSON.parse(evt.data).type;
       let payload = JSON.parse(evt.data).payload;
 
-      if (type === "chat") {
-        addMessages(payload.input);
+      if (type == "chat") {
+        addMessages(payload);
       }
       ws.onclose = (evt) => {
         console.log(`Closed session!!`);
@@ -53,10 +53,10 @@ const Chat = () => {
   return (
     <div>
       <Chatbox>
-        {messages.map((x, index) => {
+        {messages.map((data, index) => {
           return (
             <p key={index}>
-              {username}:{x}
+              {data.username}:{data.input}
             </p>
           );
         })}
