@@ -1,79 +1,72 @@
 import React, { Component, useState, useEffect } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+const URL = "ws://helpii-websocket.herokuapp.com/";
+//works but seems to close after some time
 
-const URL = "ws://localhost:8080/";
+const Chat = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const username = useSelector((state) => state.username);
 
-class Chat extends Component {
-  state = {
-    messages: [],
-    input: "",
-  };
+  const ws = new WebSocket(URL);
 
-  ws = new WebSocket(URL);
+  const sendBackend = (e) => {
+    console.log("submit");
 
-  sendBackend = (e) => {
-    console.log("send");
-    e.preventDefault();
-
-    // console.log(this.state.input);
     const message = {
       type: "chat",
-      payload: this.state.input,
+      payload: { input, username },
     };
-
-    this.ws.send(JSON.stringify(message));
+    if (input) {
+      ws.send(JSON.stringify(message));
+      setInput("");
+    }
   };
 
-  addMessages = (msg) => {
-    let obj = this.state.messages;
-    obj.push(msg);
-    this.setState({
-      message: obj,
+  const addMessages = (msg) => {
+    setMessages((previousMessages) => {
+      return [...previousMessages, msg];
     });
   };
 
-  componentDidMount = () => {
-    this.ws.onopen = () => {
+  useEffect(() => {
+    ws.onopen = () => {
       console.log("connected");
     };
 
-    this.ws.onmessage = (evt) => {
+    ws.onmessage = (evt) => {
       console.log("test");
-      // console.log(`[message] Data receive from server: ${evt.data}`);
-      //console.log(chatMessage);
+
       console.log(evt.data);
       let type = JSON.parse(evt.data).type;
       let payload = JSON.parse(evt.data).payload;
 
-      if (type == "chat") {
-        this.addMessages(payload);
+      if (type === "chat") {
+        addMessages(payload.input);
       }
+      ws.onclose = (evt) => {
+        console.log(`Closed session!!`);
+      };
     };
+  }, []);
 
-    this.ws.onclose = (evt) => {
-      console.log(`Closed session!!`);
-    };
-  };
-
-  render() {
-    // const [input, setInput] = useState(null);
-    // const [chatMessage, setChatMessage] = useState([]);
-
-    return (
-      <div>
-        <Chatbox>
-          {this.state.messages.map((x, index) => {
-            return <p key={index}>{x}</p>;
-          })}
-        </Chatbox>
-        <input
-          onChange={(e) => this.setState({ input: e.target.value })}
-        ></input>
-        <button onClick={this.sendBackend}>click me</button>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Chatbox>
+        {messages.map((x, index) => {
+          return (
+            <p key={index}>
+              {username}:{x}
+            </p>
+          );
+        })}
+      </Chatbox>
+      <input onChange={(e) => setInput(e.target.value)} value={input}></input>
+      <button onClick={sendBackend}>Send</button>
+    </div>
+  );
+};
 
 export default Chat;
 

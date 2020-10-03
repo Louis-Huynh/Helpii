@@ -63,7 +63,7 @@ const Login = () => {
         console.log("res: ", response);
         if (response.data.status === "Success") {
           history.push("/");
-          dispatch(setUsername("Brockhampton fan"));
+          dispatch(setUsername(response.data.username));
           dispatch(setLogin(true));
         } else {
           console.log("login fails");
@@ -84,6 +84,7 @@ const Login = () => {
         email: email,
       })
       .then((response) => {
+        console.log("boogey: ", response.data);
         if (response.data.email) {
           setContinueToPass(true);
           dispatch(receiveEmail(response.data.email));
