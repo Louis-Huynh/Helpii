@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-const URL = "ws://helpii-websocket.herokuapp.com/";
+const URL = "wss://helpii-websocket.herokuapp.com/";
 //works but seems to close after some time
 
 const Chat = () => {
