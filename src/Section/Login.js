@@ -21,6 +21,7 @@ import { getNodeText } from "@testing-library/react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogin, setUsername, receiveEmail, setCart } from "../Actions";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   // const [username, setUsername] = useState(null);
@@ -36,6 +37,8 @@ const Login = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation();
 
   const successLogin = () => {
     console.log("Success");
@@ -114,7 +117,9 @@ const Login = () => {
           }}
         ></Chip>
       </div>
-      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+      <InputLabel htmlFor="outlined-adornment-password">
+        {t("Login_password")}
+      </InputLabel>
       <OutlinedInput
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -124,7 +129,7 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
         type={"password"}
       />
-      <Button onClick={submitPassword}>Submit</Button>
+      <Button onClick={submitPassword}>{t("Login_submit")}</Button>
     </UserInputWrapper>
   ) : (
     <UserInputWrapper>
@@ -139,7 +144,7 @@ const Login = () => {
         label="Login with email or username"
         variant="outlined"
       />
-      <Button onClick={submitEmail}>Continue</Button>
+      <Button onClick={submitEmail}>{t("Login_Continue")}</Button>
     </UserInputWrapper>
   );
 
@@ -159,10 +164,8 @@ const Login = () => {
           }}
           severity="error"
         >
-          {isEmailSet ? <>Error, please retry entering your email</> : null}
-          {isPasswordSet ? (
-            <>Error, please retry entering your password</>
-          ) : null}
+          {isEmailSet ? <>{t("Login_error_email")}</> : null}
+          {isPasswordSet ? <>{t("Login_error_password")}</> : null}
         </Alert>
       </Snackbar>
 
@@ -172,19 +175,19 @@ const Login = () => {
             <LogoImage src={Logo} />
           </LogoContainer>
           <LoginOptions>
-            <Title>Member Login</Title>
+            <Title>{t("Login_member")}</Title>
 
             {displayLoginForm}
 
-            <Button>Forgot password/username</Button>
-            <Button onClick={handleClick}>Create an account</Button>
+            <Button>{t("Login_forgot")}</Button>
+            <Button onClick={handleClick}>{t("Login_create")}</Button>
           </LoginOptions>
         </FrontWrapper>
 
         <BackWrapper>
           <Container>
             <RegistrationContainer />
-            <Button onClick={handleClick}>Already have an account?</Button>
+            <Button onClick={handleClick}>{t("Login_already")}</Button>
           </Container>
         </BackWrapper>
       </ReactCardFlip>
