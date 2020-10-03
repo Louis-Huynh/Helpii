@@ -14,6 +14,8 @@ import Alert from "@material-ui/lab/Alert";
 import Chip from "@material-ui/core/Chip";
 import axios from "axios";
 
+import EditIcon from "@material-ui/icons/Edit";
+
 import RegistrationContainer from "../Containers/RegistrationContainer";
 import { getNodeText } from "@testing-library/react";
 import { useHistory } from "react-router-dom";
@@ -84,7 +86,6 @@ const Login = () => {
         email: email,
       })
       .then((response) => {
-        console.log("boogey: ", response.data);
         if (response.data.email) {
           setContinueToPass(true);
           dispatch(receiveEmail(response.data.email));
@@ -98,6 +99,49 @@ const Login = () => {
         console.log("error: ", error);
       });
   };
+
+  let displayLoginForm = isContinueToPass ? (
+    <UserInputWrapper>
+      <div>
+        <Chip
+          label={
+            <span>
+              {email} <i class="fas fa-edit"></i>
+            </span>
+          }
+          onClick={() => {
+            setContinueToPass(false);
+          }}
+        ></Chip>
+      </div>
+      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+      <OutlinedInput
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            submitPassword();
+          }
+        }}
+        onChange={(e) => setPassword(e.target.value)}
+        type={"password"}
+      />
+      <Button onClick={submitPassword}>Submit</Button>
+    </UserInputWrapper>
+  ) : (
+    <UserInputWrapper>
+      <TextField
+        value={email}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            submitEmail();
+          }
+        }}
+        onChange={(e) => setEmail(e.target.value)}
+        label="Login with email or username"
+        variant="outlined"
+      />
+      <Button onClick={submitEmail}>Continue</Button>
+    </UserInputWrapper>
+  );
 
   return (
     <Wrapper>
@@ -130,38 +174,7 @@ const Login = () => {
           <LoginOptions>
             <Title>Member Login</Title>
 
-            {isContinueToPass ? (
-              <UserInputWrapper>
-                <Chip label={email} />
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
-                <OutlinedInput
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      submitPassword();
-                    }
-                  }}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type={"password"}
-                />
-                <Button onClick={submitPassword}>Submit</Button>
-              </UserInputWrapper>
-            ) : (
-              <UserInputWrapper>
-                <TextField
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      submitEmail();
-                    }
-                  }}
-                  onChange={(e) => setEmail(e.target.value)}
-                  label="Login with email or username"
-                  variant="outlined"
-                />
-                <Button onClick={submitEmail}>Continue</Button>
-              </UserInputWrapper>
-            )}
+            {displayLoginForm}
 
             <Button>Forgot password/username</Button>
             <Button onClick={handleClick}>Create an account</Button>
