@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 const URL = "ws://helpii-websocket.herokuapp.com/";
 //works but seems to close after some time
 
+const URL = "ws://helpii-websocket.herokuapp.com/";
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -37,7 +38,6 @@ const Chat = () => {
 
     ws.onmessage = (evt) => {
       console.log("test");
-
       console.log(evt.data);
       let type = JSON.parse(evt.data).type;
       let payload = JSON.parse(evt.data).payload;
