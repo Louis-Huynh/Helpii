@@ -7,7 +7,7 @@ const FeatureServices = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/services").then((x) => {
+    axios.get("https://helpii-backend.herokuapp.com/services").then((x) => {
       setItems(x.data);
     });
   }, []);

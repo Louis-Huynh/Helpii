@@ -23,7 +23,7 @@ const RegistrationContainer = () => {
 
   let submitRegistration = () => {
     axios
-      .post("http://localhost:3001/register", {
+      .post("https://helpii-backend.herokuapp.com/register", {
         username: username,
         email: email,
         password: password,
