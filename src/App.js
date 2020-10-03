@@ -8,6 +8,7 @@ import Services from "./Section/Services";
 import Shop from "./Section/Shop";
 import ShoppingCart from "./Section/ShoppingCart";
 import Login from "./Section/Login";
+import Chat from "./Section/Chat";
 
 import { Switch, Route, Link } from "react-router-dom";
 
@@ -36,6 +37,10 @@ function App() {
 
       <Route exact path="/cart">
         <ShoppingCart />
+      </Route>
+
+      <Route path="/chat">
+        <Chat />
       </Route>
 
       <FooterContainer />
