@@ -7,6 +7,8 @@ import Logo from "../assets/Logo/logo.png";
 import UserIcon from "../assets/icons/user.png";
 import CartIcon from "../assets/icons/shoppingCart.png";
 
+import SearchBar from "../Containers/SearchBar";
+
 import { useSelector, useDispatch } from "react-redux";
 
 const Links = () => {
@@ -27,6 +29,7 @@ const Links = () => {
       </MiddleWrapper>
 
       <RightSideWrapper>
+        <SearchBar />
         <LinkItem to="/cart">
           <img style={{ height: "5vh", width: "5vw" }} src={CartIcon} />
         </LinkItem>
@@ -71,7 +74,6 @@ const LinkItem = styled(Link)`
 `;
 
 const Wrapper = styled.div`
-  padding: 1%;
   display: flex;
   flex-direction: rows;
   justify-content: space-between;

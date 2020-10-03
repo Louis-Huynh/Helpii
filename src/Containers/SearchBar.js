@@ -7,11 +7,13 @@ const SearchBar = () => {
   return (
     <Wrapper>
       <TextWrapper
-        id="outlined-basic"
+        style={{ height: "5vh" }}
         label="Search for anything..."
         variant="outlined"
       />
-      <SubmitBtn variant="contained">Search</SubmitBtn>
+      <SubmitBtn style={{ height: "5vh" }} variant="contained">
+        Search
+      </SubmitBtn>
     </Wrapper>
   );
 };
@@ -24,14 +26,15 @@ const Wrapper = styled.div`
 `;
 
 const TextWrapper = styled(TextField)`
-  width: 40vw;
   .MuiOutlinedInput-root {
-    margin-right: 10%;
+    margin-right: 1%;
+    padding: 2%;
   }
 `;
 
 const SubmitBtn = styled(Button)`
   .MuiButton-label {
     color: green;
+    padding: 2%;
   }
 `;
