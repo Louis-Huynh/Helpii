@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -6,14 +6,30 @@ import { COLORS } from "../Styles/Color";
 import Logo from "../assets/Logo/logo.png";
 import UserIcon from "../assets/icons/user.png";
 import CartIcon from "../assets/icons/shoppingCart.png";
-
+import i18next from "../i18next";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 import SearchBar from "../Containers/SearchBar";
-
+import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 
 const Links = () => {
+  const [language, setLanguage] = useState("en");
+
+  const { t } = useTranslation();
+
   const isLogged = useSelector((state) => state.isLogged);
   const cart = useSelector((state) => state.cart);
+
+  let handleChange = () => {
+    if (language == "en") {
+      setLanguage("fr");
+      i18next.changeLanguage("fr");
+    } else if (language == "fr") {
+      setLanguage("en");
+      i18next.changeLanguage("en");
+    }
+  };
 
   return (
     <Wrapper>
@@ -24,9 +40,9 @@ const Links = () => {
       </LeftSideWrapper>
 
       <MiddleWrapper>
-        <LinkItem to="/services">services</LinkItem>
-        <LinkItem to="/shop">shops</LinkItem>
-        <LinkItem to="/chat">chat</LinkItem>
+        <LinkItem to="/services">{t("Links_services")}</LinkItem>
+        <LinkItem to="/shop">{t("Links_shop")}</LinkItem>
+        {isLogged ? <LinkItem to="/chat">{t("Links.chat")}</LinkItem> : null}
       </MiddleWrapper>
 
       <RightSideWrapper>
@@ -41,8 +57,18 @@ const Links = () => {
             </LinkItem>
           </div>
         ) : (
-          <LinkItem to="/auth">signin</LinkItem>
+          <LinkItem to="/auth">{t("Links_signin")}</LinkItem>
         )}
+        <LanguageContainer>
+          <Select value={language} onChange={handleChange}>
+            <MenuItem value="en">
+              <i className="fas fa-language"></i>En
+            </MenuItem>
+            <MenuItem value="fr">
+              <i className="fas fa-language"></i>Fr
+            </MenuItem>
+          </Select>
+        </LanguageContainer>
       </RightSideWrapper>
     </Wrapper>
   );
@@ -93,3 +119,5 @@ const RightSideWrapper = styled.div`
   flex-direction: row;
   margin-right: 2%;
 `;
+
+const LanguageContainer = styled.div``;
