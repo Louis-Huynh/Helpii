@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import styled from "styled-components";
 
-const URL = "ws://localhost:8080/";
+const URL = "ws://helpii-websocket.herokuapp.com/";
 
 class Chat extends Component {
   state = {
@@ -39,8 +39,6 @@ class Chat extends Component {
 
     this.ws.onmessage = (evt) => {
       console.log("test");
-      // console.log(`[message] Data receive from server: ${evt.data}`);
-      //console.log(chatMessage);
       console.log(evt.data);
       let type = JSON.parse(evt.data).type;
       let payload = JSON.parse(evt.data).payload;
