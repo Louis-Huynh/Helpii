@@ -5,6 +5,7 @@ import FieldInput from "../Components/FieldInput";
 import { useTranslation } from "react-i18next";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import ImageUploader from "react-images-upload";
 
 import { COLORS } from "../Styles/Color";
 
@@ -14,6 +15,7 @@ const RegistrationContainer = () => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [pictures, setPictures] = useState([]);
   const [open, setOpen] = useState(false);
   const { t, i18n } = useTranslation();
 
@@ -41,12 +43,19 @@ const RegistrationContainer = () => {
     setOpen(false);
   };
 
+  let onDrop = (picture) => {
+    setPictures(pictures.concat(picture));
+    // this.setState({
+    //     pictures: this.state.pictures.concat(picture),
+    // });
+  };
+
   return (
     <Wrapper>
       <SnackbarItem>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={true}
+          open={open}
           autoHideDuration={3000}
           onClose={handleClose}
         >
@@ -62,6 +71,15 @@ const RegistrationContainer = () => {
           <SubTitle>{t("Create_account_subtitle")}</SubTitle>
           {/* Create an account. It’s free and take only a few minutes. */}
 
+          <ImageUploader
+            withIcon={true}
+            withPreview={true}
+            singleImage={true}
+            buttonText="Choose images"
+            onChange={onDrop}
+            imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+            maxFileSize={5242880}
+          />
           <FieldButton
             title={"Username"}
             updateData={(e) => {
@@ -103,12 +121,12 @@ const RegistrationContainer = () => {
 export default RegistrationContainer;
 
 const Wrapper = styled.div`
-  background: rgb(196, 196, 196, 0.4);
   padding: 10%;
 `;
 
 const FormWrapper = styled.div`
   border-radius: 10px;
+  width: 20vw;
 `;
 
 const Title = styled.div`
