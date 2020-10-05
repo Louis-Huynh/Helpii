@@ -1,7 +1,7 @@
 export const translationEN = {
   Links_services: "services",
   Links_shop: "shop",
-  Links_signin: "sigin",
+  Links_signin: "login",
 
   Login_member: "Member Login",
   Login_forgot: "Forgot password/username",

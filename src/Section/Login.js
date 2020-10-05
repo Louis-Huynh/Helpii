@@ -105,51 +105,77 @@ const Login = () => {
 
   let displayLoginForm = isContinueToPass ? (
     <UserInputWrapper>
-      <div>
-        <Chip
-          label={
-            <span>
-              {email} <i class="fas fa-edit"></i>
-            </span>
-          }
-          onClick={() => {
-            setContinueToPass(false);
-          }}
-        ></Chip>
-      </div>
+      <Chip
+        label={
+          <span>
+            {email} <i class="fas fa-edit"></i>
+          </span>
+        }
+        onClick={() => {
+          setContinueToPass(false);
+        }}
+      ></Chip>
       <InputLabel htmlFor="outlined-adornment-password">
         {t("Login_password")}
       </InputLabel>
-      <OutlinedInput
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            submitPassword();
-          }
-        }}
-        onChange={(e) => setPassword(e.target.value)}
-        type={"password"}
-      />
-      <Button onClick={submitPassword}>{t("Login_submit")}</Button>
+      <InputContainer>
+        <OutlinedInput
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              submitPassword();
+            }
+          }}
+          onChange={(e) => setPassword(e.target.value)}
+          type={"password"}
+        />
+        <Button onClick={submitEmail}>
+          <i class="fas fa-sign-in-alt"></i>
+        </Button>
+      </InputContainer>
     </UserInputWrapper>
   ) : (
     <UserInputWrapper>
-      <TextField
-        value={email}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            submitEmail();
-          }
-        }}
-        onChange={(e) => setEmail(e.target.value)}
-        label="Login with email or username"
-        variant="outlined"
-      />
-      <Button onClick={submitEmail}>{t("Login_Continue")}</Button>
+      <InputContainer>
+        <TextField
+          value={email}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              submitEmail();
+            }
+          }}
+          onChange={(e) => setEmail(e.target.value)}
+          label="Login with Email"
+          variant="outlined"
+        />
+        <Button onClick={submitEmail}>
+          <i class="fas fa-sign-in-alt"></i>
+        </Button>
+      </InputContainer>
     </UserInputWrapper>
   );
 
   return (
     <Wrapper>
+      <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+        <FrontWrapper>
+          <LogoContainer>
+            <LogoTitle>{t("Login_member")}</LogoTitle>
+            <LogoImage src={Logo} />
+          </LogoContainer>
+          <LoginOptions>
+            {displayLoginForm}
+            <Button>{t("Login_forgot")}</Button>
+            <Button onClick={handleClick}>{t("Login_create")}</Button>
+          </LoginOptions>
+        </FrontWrapper>
+
+        <BackWrapper>
+          {/* <Container> */}
+          <RegistrationContainer />
+          <Button onClick={handleClick}>{t("Login_already")}</Button>
+          {/* </Container> */}
+        </BackWrapper>
+      </ReactCardFlip>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={openSnack}
@@ -168,29 +194,6 @@ const Login = () => {
           {isPasswordSet ? <>{t("Login_error_password")}</> : null}
         </Alert>
       </Snackbar>
-
-      <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-        <FrontWrapper>
-          <LogoContainer>
-            <LogoImage src={Logo} />
-          </LogoContainer>
-          <LoginOptions>
-            <Title>{t("Login_member")}</Title>
-
-            {displayLoginForm}
-
-            <Button>{t("Login_forgot")}</Button>
-            <Button onClick={handleClick}>{t("Login_create")}</Button>
-          </LoginOptions>
-        </FrontWrapper>
-
-        <BackWrapper>
-          <Container>
-            <RegistrationContainer />
-            <Button onClick={handleClick}>{t("Login_already")}</Button>
-          </Container>
-        </BackWrapper>
-      </ReactCardFlip>
     </Wrapper>
   );
 };
@@ -200,19 +203,26 @@ export default Login;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  height: 90vh;
   align-items: center;
-  height: 80vh;
+  justify-content: center;
+`;
+
+const LogoTitle = styled.div`
+  font-weight: 600;
+  font-size: 2em;
+  width: 100%;
 `;
 
 const FrontWrapper = styled.div`
   width: 100%;
   justify-content: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   background: rgb(196, 196, 196, 0.4);
   border-radius: 5px;
+  padding: 4%;
 `;
 
 const BackWrapper = styled.div`
@@ -221,20 +231,20 @@ const BackWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 5px;
-`;
-
-const Container = styled.div`
+  width: 100%;
   background: rgb(196, 196, 196, 0.4);
+  padding: 0 8%;
 `;
 
 const LogoContainer = styled.div`
   height: 50%;
   width: 50%;
+  margin-bottom: 5%;
 `;
 
 const LogoImage = styled.img`
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 80%;
   object-fit: contain;
 `;
 
@@ -248,6 +258,11 @@ const Title = styled.h3``;
 const UserInputWrapper = styled.span`
   display: flex;
   flex-direction: column;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 {

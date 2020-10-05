@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { COLORS } from "../Styles/Color";
 import Logo from "../assets/Logo/logo.png";
@@ -10,15 +10,23 @@ import i18next from "../i18next";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import SearchBar from "../Containers/SearchBar";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import { Button } from "@material-ui/core";
+import { setLogin } from "../Actions";
+
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 
 const Links = () => {
   const [language, setLanguage] = useState("en");
+  const [openProfile, setOpenProfile] = useState(false);
 
   const { t } = useTranslation();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const isLogged = useSelector((state) => state.isLogged);
+  const username = useSelector((state) => state.username);
   const cart = useSelector((state) => state.cart);
 
   let handleChange = () => {
@@ -29,6 +37,12 @@ const Links = () => {
       setLanguage("en");
       i18next.changeLanguage("en");
     }
+  };
+
+  let logout = () => {
+    dispatch(setLogin(false));
+
+    history.push("/");
   };
 
   return (
@@ -46,21 +60,56 @@ const Links = () => {
       </MiddleWrapper>
 
       <RightSideWrapper>
-        <SearchBar />
+        {/* <SearchBar /> */}
         <LinkItem to="/cart">
           <img style={{ height: "5vh", width: "5vw" }} src={CartIcon} />
         </LinkItem>
         {isLogged ? (
           <div>
-            <LinkItem to="/profile">
+            {/* <LinkItem to="/profile"> */}
+            <Button onClick={() => setOpenProfile(true)}>
               <img style={{ height: "5vh", width: "5vw" }} src={UserIcon} />
-            </LinkItem>
+            </Button>
+            <SelectItem
+              open={openProfile}
+              onClose={() => {
+                setOpenProfile(false);
+              }}
+            >
+              <span>Logged in as: {username}</span>
+              <LinkHeader />
+              <MenuItem>
+                <Button>View profile</Button>
+              </MenuItem>
+              <MenuItem>
+                <Button>Settings</Button>
+              </MenuItem>
+              <MenuItem>
+                <LogoutButton
+                  style={{
+                    backgroundColor: "red",
+                    width: "100%",
+                  }}
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Logout
+                </LogoutButton>
+              </MenuItem>
+            </SelectItem>
+
+            {/* </LinkItem> */}
           </div>
         ) : (
           <LinkItem to="/auth">{t("Links_signin")}</LinkItem>
         )}
         <LanguageContainer>
-          <Select value={language} onChange={handleChange}>
+          <Select
+            style={{ width: "5vw" }}
+            value={language}
+            onChange={handleChange}
+          >
             <MenuItem value="en">
               <i className="fas fa-language"></i>En
             </MenuItem>
@@ -121,3 +170,18 @@ const RightSideWrapper = styled.div`
 `;
 
 const LanguageContainer = styled.div``;
+
+const LinkHeader = styled(ListSubheader)``;
+
+const SelectItem = styled(Select)`
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  display: none;
+`;
+
+const LogoutButton = styled(Button)`
+  .MuiButton-label {
+    color: white;
+  }
+`;
