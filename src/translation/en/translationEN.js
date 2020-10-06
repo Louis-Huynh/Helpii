@@ -1,4 +1,7 @@
 export const translationEN = {
+  Create_account: "Create an account",
+  Create_account_subtitle: "Creating an account is as simple as 1, 2, 3",
+
   Links_services: "services",
   Links_shop: "shop",
   Links_signin: "login",

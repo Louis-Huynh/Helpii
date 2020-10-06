@@ -13,6 +13,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import Chip from "@material-ui/core/Chip";
 import axios from "axios";
+import { COLORS } from "../Styles/Color";
 
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -106,6 +107,7 @@ const Login = () => {
   let displayLoginForm = isContinueToPass ? (
     <UserInputWrapper>
       <Chip
+        style={{ margin: "2% 0" }}
         label={
           <span>
             {email} <i class="fas fa-edit"></i>
@@ -114,12 +116,10 @@ const Login = () => {
         onClick={() => {
           setContinueToPass(false);
         }}
-      ></Chip>
-      <InputLabel htmlFor="outlined-adornment-password">
-        {t("Login_password")}
-      </InputLabel>
+      />
       <InputContainer>
-        <OutlinedInput
+        <TextField
+          style={{ background: COLORS.white }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               submitPassword();
@@ -127,16 +127,19 @@ const Login = () => {
           }}
           onChange={(e) => setPassword(e.target.value)}
           type={"password"}
+          label={t("Login_password")}
+          variant="outlined"
         />
-        <Button onClick={submitEmail}>
+        <ButtonField onClick={submitPassword}>
           <i class="fas fa-sign-in-alt"></i>
-        </Button>
+        </ButtonField>
       </InputContainer>
     </UserInputWrapper>
   ) : (
     <UserInputWrapper>
       <InputContainer>
         <TextField
+          style={{ background: COLORS.white }}
           value={email}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -147,9 +150,9 @@ const Login = () => {
           label="Login with Email"
           variant="outlined"
         />
-        <Button onClick={submitEmail}>
+        <ButtonField onClick={submitEmail}>
           <i class="fas fa-sign-in-alt"></i>
-        </Button>
+        </ButtonField>
       </InputContainer>
     </UserInputWrapper>
   );
@@ -164,16 +167,16 @@ const Login = () => {
           </LogoContainer>
           <LoginOptions>
             {displayLoginForm}
-            <Button>{t("Login_forgot")}</Button>
-            <Button onClick={handleClick}>{t("Login_create")}</Button>
+            <LowerButtonContainer>
+              <Button>{t("Login_forgot")}</Button>
+              <Button onClick={handleClick}>{t("Login_create")}</Button>
+            </LowerButtonContainer>
           </LoginOptions>
         </FrontWrapper>
 
         <BackWrapper>
-          {/* <Container> */}
           <RegistrationContainer />
           <Button onClick={handleClick}>{t("Login_already")}</Button>
-          {/* </Container> */}
         </BackWrapper>
       </ReactCardFlip>
       <Snackbar
@@ -258,11 +261,26 @@ const Title = styled.h3``;
 const UserInputWrapper = styled.span`
   display: flex;
   flex-direction: column;
+  justify-content: left;
+  align-items: left;
 `;
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LowerButtonContainer = styled.div`
+  margin-top: 4%;
+  display: flex;
+  flex-direction: "ow;
+  justify-content:space-between;
+`;
+
+const ButtonField = styled(Button)`
+  height: 50px;
 `;
 
 {

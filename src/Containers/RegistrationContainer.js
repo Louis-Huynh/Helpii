@@ -131,10 +131,14 @@ const FormWrapper = styled.div`
 
 const Title = styled.div`
   border-bottom: 3px solid black;
+  font-weight: 500;
+  font-size: 1.5em;
 `;
 
 const SubTitle = styled.div`
-  font-size: 0.8em;
+  font-weight: 500;
+  font-size: 0.9em;
+  margin: 2% 0;
 `;
 
 const UserInputWrapper = styled.div`
@@ -149,4 +153,7 @@ const SnackbarItem = styled.div`
   top: 10px;
 `;
 
-const FieldButton = styled(FieldInput)``;
+const FieldButton = styled(FieldInput)`
+  background: ${COLORS.white};
+  color: "red";
+`;
