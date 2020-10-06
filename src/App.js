@@ -43,7 +43,7 @@ function App() {
         <Chat />
       </Route>
 
-      <FooterContainer />
+      {/* <FooterContainer /> */}
     </div>
   );
 }

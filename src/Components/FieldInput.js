@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 
+import { COLORS } from "../Styles/Color";
+
 const FieldInput = (props) => {
   return (
     <Wrapper>
       <TextField
-        style={{ width: "100%" }}
+        style={{ borderRadius: "5px", background: COLORS.white, width: "100%" }}
         variant="outlined"
         label={props.title}
         onChange={(data) => {
