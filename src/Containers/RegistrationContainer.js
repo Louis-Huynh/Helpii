@@ -16,7 +16,8 @@ const RegistrationContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pictures, setPictures] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openFailure, setOpenFailure] = useState(false);
   const { t, i18n } = useTranslation();
 
   // useEffect(() => {
@@ -32,22 +33,19 @@ const RegistrationContainer = () => {
       })
       .then(function (response) {
         console.log(response);
-        setOpen(true);
+        if (response.data.status == "Failure") {
+          setOpenFailure(true);
+        } else {
+          setOpenSuccess(true);
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   let onDrop = (picture) => {
     setPictures(pictures.concat(picture));
-    // this.setState({
-    //     pictures: this.state.pictures.concat(picture),
-    // });
   };
 
   return (
@@ -55,12 +53,37 @@ const RegistrationContainer = () => {
       <SnackbarItem>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={open}
+          open={openSuccess}
           autoHideDuration={3000}
-          onClose={handleClose}
+          onClose={() => {
+            setOpenSuccess(false);
+          }}
         >
-          <Alert onClose={handleClose} severity="success">
+          <Alert
+            onClose={() => {
+              setOpenSuccess(false);
+            }}
+            severity="success"
+          >
             You have successfully registered
+          </Alert>
+        </Snackbar>
+
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={openFailure}
+          autoHideDuration={3000}
+          onClose={() => {
+            setOpenFailure(false);
+          }}
+        >
+          <Alert
+            onClose={() => {
+              setOpenFailure(false);
+            }}
+            severity="error"
+          >
+            Error! please retry to register your account
           </Alert>
         </Snackbar>
       </SnackbarItem>
@@ -69,7 +92,6 @@ const RegistrationContainer = () => {
         <UserInputWrapper>
           <Title>{t("Create_account")}</Title>
           <SubTitle>{t("Create_account_subtitle")}</SubTitle>
-          {/* Create an account. It’s free and take only a few minutes. */}
 
           <ImageUploader
             withIcon={true}

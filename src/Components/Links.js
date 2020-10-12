@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { COLORS } from "../Styles/Color";
 import Logo from "../assets/Logo/logo.png";
 import UserIcon from "../assets/icons/user.png";
-import CartIcon from "../assets/icons/shoppingCart.png";
+
 import i18next from "../i18next";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
@@ -13,6 +13,7 @@ import SearchBar from "../Containers/SearchBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { Button } from "@material-ui/core";
 import { setLogin } from "../Actions";
+import Cart from "../Containers/Cart";
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -49,7 +50,7 @@ const Links = () => {
     <Wrapper>
       <LeftSideWrapper>
         <LinkItem to="/">
-          <img style={{ height: "5vh", width: "5vw" }} src={Logo}></img>
+          <img style={{ height: "10vh", width: "10vw" }} src={Logo}></img>
         </LinkItem>
       </LeftSideWrapper>
 
@@ -61,12 +62,10 @@ const Links = () => {
 
       <RightSideWrapper>
         {/* <SearchBar /> */}
-        <LinkItem to="/cart">
-          <img style={{ height: "5vh", width: "5vw" }} src={CartIcon} />
-        </LinkItem>
+        <Cart />
+
         {isLogged ? (
-          <div>
-            {/* <LinkItem to="/profile"> */}
+          <UserProfile>
             <Button onClick={() => setOpenProfile(true)}>
               <img style={{ height: "5vh", width: "5vw" }} src={UserIcon} />
             </Button>
@@ -78,6 +77,11 @@ const Links = () => {
             >
               <span>Logged in as: {username}</span>
               <LinkHeader />
+              <MenuItem>
+                <LinkItem to="/create_service">
+                  <Button>Add service</Button>
+                </LinkItem>
+              </MenuItem>
               <MenuItem>
                 <Button>View profile</Button>
               </MenuItem>
@@ -98,26 +102,19 @@ const Links = () => {
                 </LogoutButton>
               </MenuItem>
             </SelectItem>
-
-            {/* </LinkItem> */}
-          </div>
+          </UserProfile>
         ) : (
           <LinkItem to="/auth">{t("Links_signin")}</LinkItem>
         )}
-        <LanguageContainer>
-          <Select
-            style={{ width: "5vw" }}
-            value={language}
-            onChange={handleChange}
-          >
-            <MenuItem value="en">
-              <i className="fas fa-language"></i>En
-            </MenuItem>
-            <MenuItem value="fr">
-              <i className="fas fa-language"></i>Fr
-            </MenuItem>
-          </Select>
-        </LanguageContainer>
+        <Select
+          style={{ width: "5vw" }}
+          value={language}
+          onChange={handleChange}
+          style={{ color: COLORS.white }}
+        >
+          <MenuItem value="en">En</MenuItem>
+          <MenuItem value="fr">Fr</MenuItem>
+        </Select>
       </RightSideWrapper>
     </Wrapper>
   );
@@ -153,7 +150,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: rows;
   justify-content: space-between;
-  border: 1px solid black;
   background-color: #242a47;
 `;
 
@@ -161,11 +157,18 @@ const LeftSideWrapper = styled.div`
   margin-left: 2%;
 `;
 
-const MiddleWrapper = styled.div``;
+const MiddleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 
 const RightSideWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   margin-right: 2%;
 `;
 
@@ -184,4 +187,10 @@ const LogoutButton = styled(Button)`
   .MuiButton-label {
     color: white;
   }
+`;
+
+const UserProfile = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
