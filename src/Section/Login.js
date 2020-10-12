@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login";
-import Logo from "../assets/Logo/logo.png";
+import Logo from "../assets/Logo/logo2.png";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import ReactCardFlip from "react-card-flip";
@@ -34,6 +34,7 @@ const Login = () => {
   const [isContinueToPass, setContinueToPass] = useState(false);
   const [isPasswordSet, setIsPassword] = useState(false);
   const [isEmailSet, setIsEmail] = useState(false);
+  const [isPassVisible, setPassVisible] = useState(false);
 
   const history = useHistory();
 
@@ -126,10 +127,27 @@ const Login = () => {
             }
           }}
           onChange={(e) => setPassword(e.target.value)}
-          type={"password"}
+          type={isPassVisible ? "text" : "password"}
           label={t("Login_password")}
           variant="outlined"
+          InputProps={{
+            endAdornment: (
+              <Button
+                onClick={() => {
+                  setPassVisible(!isPassVisible);
+                  console.log("test");
+                }}
+              >
+                {isPassVisible ? (
+                  <i class="fas fa-eye"></i>
+                ) : (
+                  <i class="fas fa-eye-slash" />
+                )}
+              </Button>
+            ),
+          }}
         />
+
         <ButtonField onClick={submitPassword}>
           <i class="fas fa-sign-in-alt"></i>
         </ButtonField>

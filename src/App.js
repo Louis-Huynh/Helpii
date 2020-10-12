@@ -9,6 +9,7 @@ import Shop from "./Section/Shop";
 import ShoppingCart from "./Section/ShoppingCart";
 import Login from "./Section/Login";
 import Chat from "./Section/Chat";
+import CreateServices from "./Section/CreateServices";
 
 import { Switch, Route, Link } from "react-router-dom";
 
@@ -41,6 +42,10 @@ function App() {
 
       <Route path="/chat">
         <Chat />
+      </Route>
+
+      <Route exact path="/create_service">
+        <CreateServices />
       </Route>
 
       {/* <FooterContainer /> */}
