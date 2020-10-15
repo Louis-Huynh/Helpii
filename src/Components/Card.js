@@ -5,13 +5,14 @@ import Button from "@material-ui/core/Button";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import styled from "styled-components";
 import User from "../assets/icons/user.png";
-
-//redirect to card with api
-let clickedCard = () => {
-  console.log("clicked");
-};
+import { useHistory } from "react-router-dom";
 
 const CardItem = (props) => {
+  const history = useHistory();
+  //redirect to card with api
+  let clickedCard = () => {
+    history.push("/services/" + props.id);
+  };
   return (
     <CardContainer>
       <CardActionArea style={{ padding: "2%" }} onClick={clickedCard}>

@@ -42,17 +42,17 @@ const Login = () => {
 
   const { t, i18n } = useTranslation();
 
-  const successLogin = () => {
-    console.log("Success");
-  };
+  // const successLogin = () => {
+  //   console.log("Success");
+  // };
 
-  const failureLogin = () => {
-    console.log("failure");
-  };
+  // const failureLogin = () => {
+  //   console.log("failure");
+  // };
 
-  const responseFacebook = (response) => {
-    console.log(response);
-  };
+  // const responseFacebook = (response) => {
+  //   console.log(response);
+  // };
 
   const handleClick = (e) => {
     e.preventDefault();

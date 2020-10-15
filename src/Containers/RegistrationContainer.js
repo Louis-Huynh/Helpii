@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import ImageUploader from "react-images-upload";
+import SubmitButton from "../Components/SubmitButton";
 
 import { COLORS } from "../Styles/Color";
 
@@ -25,6 +26,7 @@ const RegistrationContainer = () => {
   // }, []);
 
   let submitRegistration = () => {
+    console.log("test");
     axios
       .post("https://helpii-backend.herokuapp.com/register", {
         username: username,
@@ -122,7 +124,7 @@ const RegistrationContainer = () => {
             }}
           />
 
-          <Button
+          <SubmitButton
             style={{
               width: "100%",
               backgroundColor: COLORS.orange,
@@ -133,7 +135,7 @@ const RegistrationContainer = () => {
             onClick={submitRegistration}
           >
             Create account
-          </Button>
+          </SubmitButton>
         </UserInputWrapper>
       </FormWrapper>
     </Wrapper>
