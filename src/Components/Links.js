@@ -50,7 +50,7 @@ const Links = () => {
     <Wrapper>
       <LeftSideWrapper>
         <LinkItem to="/">
-          <img style={{ height: "10vh", width: "10vw" }} src={Logo}></img>
+          <img style={{ height: "9vh", width: "9vw" }} src={Logo}></img>
         </LinkItem>
       </LeftSideWrapper>
 

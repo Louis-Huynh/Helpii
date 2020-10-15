@@ -10,6 +10,7 @@ import ShoppingCart from "./Section/ShoppingCart";
 import Login from "./Section/Login";
 import Chat from "./Section/Chat";
 import CreateServices from "./Section/CreateServices";
+import ServiceItem from "./Components/ServiceItem";
 
 import { Switch, Route, Link } from "react-router-dom";
 
@@ -27,6 +28,11 @@ function App() {
       <Route exact path="/services">
         <Services />
       </Route>
+
+      <Route
+        path="/services/:id"
+        render={(props) => <ServiceItem {...props} />}
+      />
 
       <Route exact path="/shop">
         <Shop />
