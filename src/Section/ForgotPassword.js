@@ -6,10 +6,8 @@ const ForgotPassword = (event) => {
   const [email, setEmail] = useState("");
 
   const forgotPassword = () => {
-    // event.preventDefault();
-    console.log("cheese pizza");
     axios
-      .post("http://localhost:3001/reset_password", {
+      .post("https://helpii-backend.herokuapp.com/reset_password", {
         email: email,
       })
       .then((response) => {
