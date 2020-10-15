@@ -15,6 +15,7 @@ import ServiceItem from "./Components/ServiceItem";
 import { Switch, Route, Link } from "react-router-dom";
 
 import FooterContainer from "./Containers/FooterContainer";
+import ForgotPassword from "./Section/ForgotPassword";
 
 function App() {
   return (
@@ -48,6 +49,10 @@ function App() {
 
       <Route path="/chat">
         <Chat />
+      </Route>
+
+      <Route path="/reset_password">
+        <ForgotPassword />
       </Route>
 
       <Route exact path="/create_service">

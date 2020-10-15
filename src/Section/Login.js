@@ -105,6 +105,11 @@ const Login = () => {
       });
   };
 
+  const handleForgotForm = () => {
+    console.log("I'm a deer");
+    history.push("/reset_password");
+  };
+
   let displayLoginForm = isContinueToPass ? (
     <UserInputWrapper>
       <Chip
@@ -186,7 +191,7 @@ const Login = () => {
           <LoginOptions>
             {displayLoginForm}
             <LowerButtonContainer>
-              <Button>{t("Login_forgot")}</Button>
+              <Button onClick={handleForgotForm}> {t("Login_forgot")}</Button>
               <Button onClick={handleClick}>{t("Login_create")}</Button>
             </LowerButtonContainer>
           </LoginOptions>
