@@ -16,10 +16,12 @@ const FeatureServices = () => {
     <Wrapper>
       <Title>Feature Services</Title>
       <CardContainer>
-        {items.map((item) => {
+        {items.map((item, index) => {
           return (
             <CardWrapper>
               <CardItem
+                key={index}
+                id={item.id}
                 title={item.title}
                 username={item.username}
                 description={item.description}

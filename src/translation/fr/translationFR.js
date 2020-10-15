@@ -1,8 +1,21 @@
 export const translationFR = {
-  "Welcome to React": "Bienvenu a react",
+  Create_account: "Créer un compte",
+  Create_account_subtitle: "Créer un compte est aussi simple que 1, 2,3",
 
-  Create_account: "Cree une compte",
+  Links_services: "services",
+  Links_shop: "boutique",
 
-  Create_account_subtitle:
-    "Cree une compte. Ca prend quelques minutes et c'est gratuit.",
+  Links_signin: "se connecter",
+
+  Login_member: "Identifiant",
+  Login_forgot: "Mot de passe / nom d'utilisateur oublié",
+  Login_create: "Créer un compte",
+  Login_already: "Vous avez déjà un compte?",
+  Login_password: "Mot de passe",
+  Login_submit: "Soumettre",
+  Login_Continue: "Continuer",
+
+  Login_error_email: "Erreur, veuillez réessayer d'entrer votre e-mail",
+  Login_error_password:
+    "Erreur, veuillez réessayer d'entrer votre mot de passe",
 };

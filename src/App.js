@@ -9,10 +9,13 @@ import Shop from "./Section/Shop";
 import ShoppingCart from "./Section/ShoppingCart";
 import Login from "./Section/Login";
 import Chat from "./Section/Chat";
+import CreateServices from "./Section/CreateServices";
+import ServiceItem from "./Components/ServiceItem";
 
 import { Switch, Route, Link } from "react-router-dom";
 
 import FooterContainer from "./Containers/FooterContainer";
+import ForgotPassword from "./Section/ForgotPassword";
 
 function App() {
   return (
@@ -26,6 +29,11 @@ function App() {
       <Route exact path="/services">
         <Services />
       </Route>
+
+      <Route
+        path="/services/:id"
+        render={(props) => <ServiceItem {...props} />}
+      />
 
       <Route exact path="/shop">
         <Shop />
@@ -43,7 +51,15 @@ function App() {
         <Chat />
       </Route>
 
-      <FooterContainer />
+      <Route path="/reset_password">
+        <ForgotPassword />
+      </Route>
+
+      <Route exact path="/create_service">
+        <CreateServices />
+      </Route>
+
+      {/* <FooterContainer /> */}
     </div>
   );
 }

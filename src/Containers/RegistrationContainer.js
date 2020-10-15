@@ -5,6 +5,8 @@ import FieldInput from "../Components/FieldInput";
 import { useTranslation } from "react-i18next";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import ImageUploader from "react-images-upload";
+import SubmitButton from "../Components/SubmitButton";
 
 import { COLORS } from "../Styles/Color";
 
@@ -14,7 +16,9 @@ const RegistrationContainer = () => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = useState(false);
+  const [pictures, setPictures] = useState([]);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openFailure, setOpenFailure] = useState(false);
   const { t, i18n } = useTranslation();
 
   // useEffect(() => {
@@ -22,6 +26,7 @@ const RegistrationContainer = () => {
   // }, []);
 
   let submitRegistration = () => {
+    console.log("test");
     axios
       .post("https://helpii-backend.herokuapp.com/register", {
         username: username,
@@ -30,15 +35,19 @@ const RegistrationContainer = () => {
       })
       .then(function (response) {
         console.log(response);
-        setOpen(true);
+        if (response.data.status == "Failure") {
+          setOpenFailure(true);
+        } else {
+          setOpenSuccess(true);
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  let onDrop = (picture) => {
+    setPictures(pictures.concat(picture));
   };
 
   return (
@@ -46,12 +55,37 @@ const RegistrationContainer = () => {
       <SnackbarItem>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={true}
+          open={openSuccess}
           autoHideDuration={3000}
-          onClose={handleClose}
+          onClose={() => {
+            setOpenSuccess(false);
+          }}
         >
-          <Alert onClose={handleClose} severity="success">
+          <Alert
+            onClose={() => {
+              setOpenSuccess(false);
+            }}
+            severity="success"
+          >
             You have successfully registered
+          </Alert>
+        </Snackbar>
+
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={openFailure}
+          autoHideDuration={3000}
+          onClose={() => {
+            setOpenFailure(false);
+          }}
+        >
+          <Alert
+            onClose={() => {
+              setOpenFailure(false);
+            }}
+            severity="error"
+          >
+            Error! please retry to register your account
           </Alert>
         </Snackbar>
       </SnackbarItem>
@@ -60,8 +94,16 @@ const RegistrationContainer = () => {
         <UserInputWrapper>
           <Title>{t("Create_account")}</Title>
           <SubTitle>{t("Create_account_subtitle")}</SubTitle>
-          {/* Create an account. It’s free and take only a few minutes. */}
 
+          <ImageUploader
+            withIcon={true}
+            withPreview={true}
+            singleImage={true}
+            buttonText="Choose images"
+            onChange={onDrop}
+            imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+            maxFileSize={5242880}
+          />
           <FieldButton
             title={"Username"}
             updateData={(e) => {
@@ -82,7 +124,7 @@ const RegistrationContainer = () => {
             }}
           />
 
-          <Button
+          <SubmitButton
             style={{
               width: "100%",
               backgroundColor: COLORS.orange,
@@ -93,7 +135,7 @@ const RegistrationContainer = () => {
             onClick={submitRegistration}
           >
             Create account
-          </Button>
+          </SubmitButton>
         </UserInputWrapper>
       </FormWrapper>
     </Wrapper>
@@ -103,20 +145,24 @@ const RegistrationContainer = () => {
 export default RegistrationContainer;
 
 const Wrapper = styled.div`
-  background: rgb(196, 196, 196, 0.4);
   padding: 10%;
 `;
 
 const FormWrapper = styled.div`
   border-radius: 10px;
+  width: 20vw;
 `;
 
 const Title = styled.div`
   border-bottom: 3px solid black;
+  font-weight: 500;
+  font-size: 1.5em;
 `;
 
 const SubTitle = styled.div`
-  font-size: 0.8em;
+  font-weight: 500;
+  font-size: 0.9em;
+  margin: 2% 0;
 `;
 
 const UserInputWrapper = styled.div`
@@ -131,4 +177,7 @@ const SnackbarItem = styled.div`
   top: 10px;
 `;
 
-const FieldButton = styled(FieldInput)``;
+const FieldButton = styled(FieldInput)`
+  background: ${COLORS.white};
+  color: "red";
+`;
