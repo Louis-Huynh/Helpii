@@ -4,9 +4,16 @@ import dateFormat from "dateformat";
 import { COLORS } from "../Styles/Color";
 import axios from "axios";
 import Card from "../Components/Card";
+import Button from "@material-ui/core/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { setCart } from "../Actions";
 
 const ServiceItem = (props) => {
   const [service, setService] = useState([]);
+  const [isCartItem, setCartItem] = useState(false);
+  let getCartItems = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // console.log("test");
@@ -26,12 +33,31 @@ const ServiceItem = (props) => {
     //get user information
   }, []);
 
+  let handleCartItem = () => {
+    setCartItem(!isCartItem);
+
+    // if true add to redux cart
+    if (isCartItem) {
+      console.log(getCartItems);
+      getCartItems.push(service);
+      dispatch(setCart(getCartItems));
+    }
+    // if false then remove from redux cart
+    else {
+      const index = getCartItems.indexOf(service.id);
+      if (index > -1) {
+        // getCartItems.splice(index, 1);
+      }
+      // dispatch(setCart([getCartItems]));
+    }
+  };
+
   return (
     <Wrapper>
       <UpperWrapper>
         <MainContainer>
           <ActionButton>
-            <button>Cart</button>
+            <Button onClick={handleCartItem}>add to Cart</Button>
           </ActionButton>
           <TitleContainer>
             <Title>Title {service.title}</Title>
