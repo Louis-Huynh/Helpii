@@ -9,6 +9,18 @@ const ShoppingCart = () => {
   return (
     <Wrapper>
       <p>ShoppingCart</p>
+
+      {cart.map((item) => {
+        return (
+          <div>
+            <p>{item.title}</p>
+            <p>{item.username}</p>
+            <p>{item.description}</p>
+            <p>{item.date}</p>
+            <p>{item.location}</p>
+          </div>
+        );
+      })}
     </Wrapper>
   );
 };

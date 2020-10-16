@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import CardItem from "../Components/Card";
+import dateFormat from "dateformat";
 
 const FeatureServices = () => {
   const [items, setItems] = useState([]);
@@ -25,7 +26,7 @@ const FeatureServices = () => {
                 title={item.title}
                 username={item.username}
                 description={item.description}
-                date={item.date}
+                date={dateFormat(item.date, "dS, mm, yyyy")}
               />
             </CardWrapper>
           );

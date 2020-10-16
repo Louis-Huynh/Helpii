@@ -14,7 +14,7 @@ export const userReducer = (state = initialState, action) => {
     case "SET_USERNAME":
       return { ...state, username: action.payload };
     case "SET_CART":
-      return { ...state, cart: action.payload };
+      return { ...state, cart: [...state.cart, action.payload] };
     default:
       return state;
   }

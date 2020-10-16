@@ -80,6 +80,7 @@ const CardContent = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 `;
 
 const CardActionsContainer = styled(CardActions)`
