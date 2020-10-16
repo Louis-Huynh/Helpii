@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import axios from "axios";
+import FieldInput from "../Components/FieldInput";
+import Button from "@material-ui/core/Button";
+import ForgotPwIcon from "../assets/icons/forgot.svg";
 
 const ForgotPassword = (event) => {
   const [email, setEmail] = useState("");
@@ -18,20 +22,50 @@ const ForgotPassword = (event) => {
       });
   };
 
-  const handleEmailChange = (event) => {
-    console.log("email", email);
-    setEmail(event.target.value);
-  };
-
   return (
-    <div>
-      <p>Email</p>
-      <input value={email} onChange={handleEmailChange} />
-      <button type="submit" onClick={forgotPassword}>
-        Submit
-      </button>
-    </div>
+    <Wrapper>
+      <ResetPwContainer>
+        <Title>Reset your password</Title>
+        <Image src={ForgotPwIcon} alt="Forgot pw" />
+        <FieldInput
+          title={"Enter your email"}
+          value={email}
+          updateData={(e) => setEmail(e.target.value)}
+        />
+
+        <Button type="submit" onClick={forgotPassword}>
+          Reset your password
+        </Button>
+      </ResetPwContainer>
+    </Wrapper>
   );
 };
 
 export default ForgotPassword;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+`;
+
+const ResetPwContainer = styled.div`
+  padding: 4%;
+  background: rgba(190, 190, 190, 0.4);
+  height: 50%;
+  width: 30%;
+  border-radius: 5px;
+`;
+
+const Title = styled.div`
+  font-weight: 500;
+  font-size: 2em;
+  margin-bottom: 4%;
+`;
+
+const Image = styled.img`
+  height: 180px;
+  width: 180px;
+`;
