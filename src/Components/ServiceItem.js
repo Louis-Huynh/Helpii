@@ -7,10 +7,13 @@ import Card from "../Components/Card";
 import Button from "@material-ui/core/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { setCart } from "../Actions";
+import { useHistory } from "react-router-dom";
 
 const ServiceItem = (props) => {
+  const history = useHistory();
+
   const [service, setService] = useState([]);
-  const [isCartItem, setCartItem] = useState(false);
+  // const [isCartItem, setCartItem] = useState(false);
   let getCartItems = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
@@ -34,22 +37,27 @@ const ServiceItem = (props) => {
   }, []);
 
   let handleCartItem = () => {
-    setCartItem(!isCartItem);
+    // setCartItem(!isCartItem);
+
+    // verify if it contains the items in carts
+
+    let isContain = false;
+
+    for (let i = 0; i < getCartItems.length; i++) {
+      if (getCartItems[i].id == service.id) {
+        isContain = true;
+        return;
+      }
+    }
 
     // if true add to redux cart
-    if (isCartItem) {
+    if (!isContain) {
       console.log(getCartItems);
       getCartItems.push(service);
       dispatch(setCart(getCartItems));
     }
-    // if false then remove from redux cart
-    else {
-      const index = getCartItems.indexOf(service.id);
-      if (index > -1) {
-        // getCartItems.splice(index, 1);
-      }
-      // dispatch(setCart([getCartItems]));
-    }
+
+    history.push("/cart/");
   };
 
   return (
@@ -57,13 +65,15 @@ const ServiceItem = (props) => {
       <UpperWrapper>
         <MainContainer>
           <ActionButton>
-            <Button onClick={handleCartItem}>add to Cart</Button>
+            <Button onClick={handleCartItem}>
+              <i class="fas fa-cart-plus"></i>add to Cart
+            </Button>
           </ActionButton>
           <TitleContainer>
-            <Title>Title {service.title}</Title>
+            <Title>{service.title}</Title>
             <Date>{dateFormat(service.date, "dddd, mmmm dS, yyyy")}</Date>
           </TitleContainer>
-          <p>Description {service.description}</p>
+          <p>{service.description}</p>
         </MainContainer>
         <UserContainer>
           <Username>service.username</Username>
