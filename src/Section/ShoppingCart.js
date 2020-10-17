@@ -36,7 +36,7 @@ const ShoppingCart = () => {
     dispatch(setCart(cartItem));
 
     //update UI cart
-    setCartItem(cartItem);
+    setCartItem([...cartItem]);
   };
 
   return (

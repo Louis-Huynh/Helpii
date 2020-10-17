@@ -14,7 +14,9 @@ const ServiceItem = (props) => {
 
   const [service, setService] = useState([]);
   // const [isCartItem, setCartItem] = useState(false);
-  let getCartItems = useSelector((state) => state.cart);
+  let cart = useSelector((state) => state.cart);
+
+  const [cartItem, setCartItem] = useState([...cart]);
 
   const dispatch = useDispatch();
 
@@ -37,14 +39,12 @@ const ServiceItem = (props) => {
   }, []);
 
   let handleCartItem = () => {
-    // setCartItem(!isCartItem);
-
     // verify if it contains the items in carts
 
     let isContain = false;
 
-    for (let i = 0; i < getCartItems.length; i++) {
-      if (getCartItems[i].id == service.id) {
+    for (let i = 0; i < cartItem.length; i++) {
+      if (cartItem[i].id == service.id) {
         isContain = true;
         return;
       }
@@ -52,9 +52,10 @@ const ServiceItem = (props) => {
 
     // if true add to redux cart
     if (!isContain) {
-      console.log(getCartItems);
-      getCartItems.push(service);
-      dispatch(setCart(getCartItems));
+      console.log(cartItem);
+      cartItem.push(service);
+      setCartItem(cartItem);
+      dispatch(setCart(cartItem));
     }
 
     history.push("/cart/");

@@ -13,9 +13,11 @@ import { useSelector, useDispatch } from "react-redux";
 const CardItem = (props) => {
   const history = useHistory();
 
+  let cart = useSelector((state) => state.cart);
+
+  const [cartItem, setCartItem] = useState([...cart]);
   const [isStar, setStar] = useState(false);
 
-  let getCartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   //redirect to card with api
@@ -32,8 +34,8 @@ const CardItem = (props) => {
 
     let isContain = false;
 
-    for (let i = 0; i < getCartItems.length; i++) {
-      if (getCartItems[i].id == props.id) {
+    for (let i = 0; i < cartItem.length; i++) {
+      if (cartItem[i].id == props.id) {
         isContain = true;
         return;
       }
@@ -41,9 +43,9 @@ const CardItem = (props) => {
 
     // if true add to redux cart
     if (!isContain) {
-      console.log(getCartItems);
-      getCartItems.push(props.item);
-      dispatch(setCart(getCartItems));
+      cartItem.push(props.item);
+      setCartItem(cartItem);
+      dispatch(setCart(cartItem));
     }
 
     history.push("/cart/");

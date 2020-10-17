@@ -91,15 +91,23 @@ const Links = () => {
               <span>Logged in as: {username}</span>
               <LinkHeader />
               <MenuItem>
-                <LinkItem to="/create_service">
-                  <Button>Add service</Button>
+                <ButtonLink>View profile</ButtonLink>
+              </MenuItem>
+              <MenuItem>
+                <LinkItem>
+                  <ButtonLink>Add shop</ButtonLink>
                 </LinkItem>
               </MenuItem>
               <MenuItem>
-                <Button>View profile</Button>
+                <LinkItem to="/create_service">
+                  <ButtonLink>Add service</ButtonLink>
+                </LinkItem>
               </MenuItem>
               <MenuItem>
-                <Button>Settings</Button>
+                <ButtonLink>View service & shop</ButtonLink>
+              </MenuItem>
+              <MenuItem>
+                <ButtonLink>Settings</ButtonLink>
               </MenuItem>
               <MenuItem>
                 <LogoutButton
@@ -206,4 +214,8 @@ const UserProfile = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const ButtonLink = styled(Button)`
+  width: 100%;
 `;
