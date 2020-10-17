@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { COLORS } from "../Styles/Color";
 import CartIcon from "../assets/icons/shoppingCart.png";
-import { useSelector, useDispatch } from "react-redux";
 
 const Cart = (props) => {
-  const cartSelector = useSelector((state) => state.cart);
-
-  const [imageNumber, setImageNumber] = useState("");
-
-  let getCartSize = () => {
-    return;
-  };
+  console.log("test");
 
   return (
     <LinkItem to="/cart">
       <img style={{ height: "5vh", width: "5vw" }} src={CartIcon} />
+      <NumberImg src={props.number} />
     </LinkItem>
   );
 };
@@ -34,4 +28,11 @@ const LinkItem = styled(Link)`
     color: ${COLORS.orange};
   }
   font-size: 1.5em;
+`;
+
+const NumberImg = styled.img`
+  position: absolute;
+  top: 0px;
+  height: 25px;
+  width: 25px;
 `;

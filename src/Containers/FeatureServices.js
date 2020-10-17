@@ -26,6 +26,7 @@ const FeatureServices = () => {
                 title={item.title}
                 username={item.username}
                 description={item.description}
+                item={item}
                 date={dateFormat(item.date, "dS, mm, yyyy")}
               />
             </CardWrapper>

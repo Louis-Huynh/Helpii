@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
@@ -15,6 +15,8 @@ import { Button } from "@material-ui/core";
 import { setLogin } from "../Actions";
 import Cart from "../Containers/Cart";
 
+import { getNumberImg } from "../Containers/utils";
+
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -28,7 +30,18 @@ const Links = () => {
 
   const isLogged = useSelector((state) => state.isLogged);
   const username = useSelector((state) => state.username);
-  const cart = useSelector((state) => state.cart);
+
+  const [imageNumber, setImageNumber] = useState([]);
+
+  const cartSelector = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    console.log(cartSelector);
+    let sizeOfCart = cartSelector.length;
+    console.log(sizeOfCart);
+
+    setImageNumber(getNumberImg(sizeOfCart));
+  });
 
   let handleChange = () => {
     if (language == "en") {
@@ -62,7 +75,7 @@ const Links = () => {
 
       <RightSideWrapper>
         {/* <SearchBar /> */}
-        <Cart />
+        <Cart number={imageNumber} />
 
         {isLogged ? (
           <UserProfile>
