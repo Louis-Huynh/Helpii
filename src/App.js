@@ -12,6 +12,8 @@ import Chat from "./Section/Chat";
 import CreateServices from "./Section/CreateServices";
 import ServiceItem from "./Components/ServiceItem";
 
+import Profile from "./Section/Profile";
+
 import { Switch, Route, Link } from "react-router-dom";
 
 import FooterContainer from "./Containers/FooterContainer";
@@ -58,6 +60,8 @@ function App() {
       <Route exact path="/create_service">
         <CreateServices />
       </Route>
+
+      <Route path="/profile/:user" render={(props) => <Profile {...props} />} />
 
       {/* <FooterContainer /> */}
     </div>
