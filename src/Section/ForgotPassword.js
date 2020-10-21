@@ -10,8 +10,9 @@ const ForgotPassword = (event) => {
   const [email, setEmail] = useState("");
 
   const forgotPassword = () => {
+    //https://helpii-backend.herokuapp.com/reset_password
     axios
-      .post("https://helpii-backend.herokuapp.com/reset_password", {
+      .post("http://localhost:3001/reset_password", {
         email: email,
       })
       .then((response) => {
@@ -30,7 +31,7 @@ const ForgotPassword = (event) => {
         <FieldInput
           title={"Enter your email"}
           value={email}
-          updateData={(e) => setEmail(e.target.value)}
+          updateData={(e) => setEmail(e)}
         />
 
         <Button type="submit" onClick={forgotPassword}>

@@ -16,6 +16,7 @@ import { Switch, Route, Link } from "react-router-dom";
 
 import FooterContainer from "./Containers/FooterContainer";
 import ForgotPassword from "./Section/ForgotPassword";
+import ChangePassForm from "./Section/ChangePassForm";
 
 function App() {
   return (
@@ -51,9 +52,17 @@ function App() {
         <Chat />
       </Route>
 
-      <Route path="/reset_password">
+      <Route exact path="/reset_password">
         <ForgotPassword />
       </Route>
+
+      <Route
+        path="/reset_password/:id/:token"
+        // component={ChangePassForm}
+        render={({ match }) => (
+          <ChangePassForm userId={match.params.id} token={match.params.token} />
+        )}
+      />
 
       <Route exact path="/create_service">
         <CreateServices />
