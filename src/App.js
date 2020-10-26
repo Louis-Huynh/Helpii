@@ -58,9 +58,8 @@ function App() {
 
       <Route
         path="/reset_password/:id/:token"
-        // component={ChangePassForm}
         render={({ match }) => (
-          <ChangePassForm userId={match.params.id} token={match.params.token} />
+          <ChangePassForm id={match.params.id} token={match.params.token} />
         )}
       />
 

@@ -16,10 +16,10 @@ const ForgotPassword = (event) => {
         email: email,
       })
       .then((response) => {
-        console.log("da response: ", response);
+        console.log("response GET forgotpw: ", response);
       })
       .catch((error) => {
-        console.log("error forgot: ", error);
+        console.log("Error forgotpw: ", error);
       });
   };
 
