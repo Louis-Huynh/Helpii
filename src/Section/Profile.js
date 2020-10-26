@@ -9,12 +9,10 @@ const Profile = (props) => {
     // console.log("test");
     //use axios call to get the item
     axios
-      .get(
-        "https://helpii-backend.herokuapp.com/services/" +
-          props.match.params.user
-      )
+      .get("http://localhost:3001/user/" + props.match.params.user)
       .then((results) => {
         console.log("test");
+        console.log(results.data);
       })
       .catch();
 

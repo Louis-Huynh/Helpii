@@ -91,7 +91,7 @@ const Links = () => {
               <span>Logged in as: {username}</span>
               <LinkHeader />
               <MenuItem>
-                <LinkItem to="/profile">
+                <LinkItem to={"/profile/" + username}>
                   <ButtonLink>View profile</ButtonLink>
                 </LinkItem>
               </MenuItem>
