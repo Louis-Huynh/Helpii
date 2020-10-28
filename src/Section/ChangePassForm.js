@@ -19,7 +19,7 @@ const ChangePassForm = (props) => {
         console.log("response GET:", response);
         setShowForm(true);
       })
-      .catch((error) => console.log("Error no show:", error));
+      .catch((error) => console.log("Error authorization:", error));
   }, []);
 
   const sendPasswordReset = (e) => {
@@ -53,7 +53,6 @@ const ChangePassForm = (props) => {
           {submitted ? (
             <div>
               <p>Your password has been saved.</p>
-              {/* link to login page */}
               <button onClick={directToLogin}>Sign back in</button>
             </div>
           ) : (

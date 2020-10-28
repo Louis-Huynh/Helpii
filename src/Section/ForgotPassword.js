@@ -8,6 +8,7 @@ import ForgotPwIcon from "../assets/icons/forgot.svg";
 
 const ForgotPassword = (event) => {
   const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const forgotPassword = () => {
     //https://helpii-backend.herokuapp.com/reset_password
@@ -21,22 +22,37 @@ const ForgotPassword = (event) => {
       .catch((error) => {
         console.log("Error forgotpw: ", error);
       });
+
+    setSubmitted(true);
   };
 
   return (
     <Wrapper>
       <ResetPwContainer>
-        <Title>Reset your password</Title>
-        <Image src={ForgotPwIcon} alt="Forgot pw" />
-        <FieldInput
-          title={"Enter your email"}
-          value={email}
-          updateData={(e) => setEmail(e)}
-        />
+        {submitted ? (
+          <div>
+            <Title>Password reset link sent</Title>
+            <Image src={ForgotPwIcon} alt="Forgot pw" />
+            <h4>
+              If your email matches an existing account we will send you a
+              password recovery email within a few minutes
+            </h4>
+          </div>
+        ) : (
+          <div>
+            <Title>Reset your password</Title>
+            <Image src={ForgotPwIcon} alt="Forgot pw" />
+            <FieldInput
+              title={"Enter your email"}
+              value={email}
+              updateData={(e) => setEmail(e)}
+            />
 
-        <Button type="submit" onClick={forgotPassword}>
-          Reset your password
-        </Button>
+            <Button type="submit" onClick={forgotPassword}>
+              Reset your password
+            </Button>
+          </div>
+        )}
       </ResetPwContainer>
     </Wrapper>
   );
@@ -55,7 +71,7 @@ const Wrapper = styled.div`
 const ResetPwContainer = styled.div`
   padding: 4%;
   background: rgba(190, 190, 190, 0.4);
-  height: 50%;
+  height: 60%;
   width: 30%;
   border-radius: 5px;
 `;
